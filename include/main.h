@@ -36,6 +36,7 @@
 
 #include "api.h"
 #include "localization/particleFilter.h"
+#include "localization/gps.h"
 
 /**
  * You should add more #includes here
