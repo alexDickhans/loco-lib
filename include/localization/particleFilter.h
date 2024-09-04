@@ -119,4 +119,8 @@ public:
 			particle.z() = this->angleFunction().getValue();
 		}
 	}
+
+	void addSensor(Sensor* sensor) {
+		this->sensors.emplace_back(sensor);
+	}
 };
