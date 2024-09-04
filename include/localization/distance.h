@@ -15,13 +15,13 @@ public:
 	}
 
 	std::optional<double> p(Eigen::Vector3d x) override {
-		auto measured = distance.get();
+		const auto measured = distance.get();
 
 		if (measured == 9999 || distance.get_object_size() < 50) {
 			return std::nullopt;
 		}
 
-		auto measuredMeters = measured * 1_mm;
+		const auto measuredMeters = measured * 1_mm;
 
 		auto v_1 = Eigen::Rotation2Dd(x.z()) * sensorOffset.head<2>();
 		auto v_2 = Eigen::Rotation2Dd(sensorOffset.z() + x.z()) * Eigen::Vector2d(1.0, 0.0) + v_1;
