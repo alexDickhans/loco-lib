@@ -1,7 +1,8 @@
 #pragma once
 
 /**
- * @brief Uses a an inverse quintic to approximate the normal function
+ * @brief Uses an inverse quintic to approximate the normal function. We use this to reduce the processing time for
+ * each particle to a minimum to increase the total number of particles
  *
  * @param x Number of standard deviations from mean
  * @return Approximation of the normal pdf

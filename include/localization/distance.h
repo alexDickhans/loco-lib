@@ -15,7 +15,7 @@ constexpr float WALL_1_Y = 1.78308;
 constexpr float WALL_2_X = -1.78308;
 constexpr float WALL_3_Y = -1.78308;
 
-class Distance : public SensorModel {
+class DistanceSensorModel : public SensorModel {
 private:
 	Eigen::Vector3f sensorOffset;
 	pros::Distance distance;
@@ -24,7 +24,7 @@ private:
 	bool exit = false;
 	QLength std = 0.0;
 public:
-	Distance(Eigen::Vector3f sensor_offset, pros::Distance distance)
+	DistanceSensorModel(Eigen::Vector3f sensor_offset, pros::Distance distance)
 		: sensorOffset(std::move(sensor_offset)),
 		  distance(std::move(distance)) {
 	}
@@ -71,5 +71,5 @@ public:
 		return cheap_norm_pdf((predicted - measured.getValue())/std.getValue()) * LOCO_CONFIG::DISTANCE_WEIGHT;
 	}
 
-	~Distance() override = default;
+	~DistanceSensorModel() override = default;
 };

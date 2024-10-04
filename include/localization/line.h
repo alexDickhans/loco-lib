@@ -16,13 +16,13 @@ const std::vector<float> LINES_Y = {
 	-1.47828,
 };
 
-class LineSensor : public SensorModel {
+class LineSensorModel : public SensorModel {
 private:
 	Eigen::Vector2f sensorOffset;
 	pros::adi::LineSensor lineSensor;
 	bool measured{false};
 public:
-	LineSensor(Eigen::Vector2f sensor_offset, pros::adi::LineSensor line_sensor)
+	LineSensorModel(Eigen::Vector2f sensor_offset, pros::adi::LineSensor line_sensor)
 		: sensorOffset(std::move(sensor_offset)),
 		  lineSensor(std::move(line_sensor)) {
 	}
@@ -30,8 +30,6 @@ public:
 	void update() override {
 		measured = this->lineSensor.get_value() < LOCO_CONFIG::LINE_SENSOR_THRESHOLD;
 	}
-
-	~LineSensor() override = default;
 
 	std::optional<double> p(const Eigen::Vector3f& x) override {
 		Eigen::Vector2f sensor_position = Eigen::Rotation2Df(x.z()) * sensorOffset + x.head<2>();
@@ -52,4 +50,6 @@ public:
 			return 0.4 * LOCO_CONFIG::LINE_WEIGHT;
 		}
 	}
+
+	~LineSensorModel() override = default;
 };

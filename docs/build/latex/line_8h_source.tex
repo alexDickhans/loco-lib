@@ -1,0 +1,61 @@
+\doxysection{line.\+h}
+\hypertarget{line_8h_source}{}\label{line_8h_source}\index{/Users/alex/Documents/VEX/loco-\/lib/include/localization/line.h@{/Users/alex/Documents/VEX/loco-\/lib/include/localization/line.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}config.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}sensorModel.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{const}\ std::vector<std::pair<Eigen::Vector2f,\ Eigen::Vector2f>>\ LINES\ =\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \{\{-\/1.78308,\ 0\},\ \{1.78308,\ 0\}\},}
+\DoxyCodeLine{00009\ \ \ \ \ \{\{-\/1.78308,\ 1.47828\},\ \{1.78308,\ 1.47828\}\},}
+\DoxyCodeLine{00010\ \ \ \ \ \{\{-\/1.78308,\ -\/1.47828\},\ \{1.78308,\ -\/1.47828\}\},}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{const}\ std::vector<float>\ LINES\_Y\ =\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ 0.0,}
+\DoxyCodeLine{00015\ \ \ \ \ 1.47828,}
+\DoxyCodeLine{00016\ \ \ \ \ -\/1.47828,}
+\DoxyCodeLine{00017\ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_line_sensor_model}{LineSensorModel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_sensor_model}{SensorModel}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ Eigen::Vector2f\ sensorOffset;}
+\DoxyCodeLine{00022\ \ \ \ \ pros::adi::LineSensor\ lineSensor;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ measured\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_line_sensor_model}{LineSensorModel}}(Eigen::Vector2f\ sensor\_offset,\ pros::adi::LineSensor\ line\_sensor)}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ :\ sensorOffset(std::move(sensor\_offset)),}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ lineSensor(std::move(line\_sensor))\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_line_sensor_model_a055567b171c5405d2af8f3ac729e058a}{update}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ measured\ =\ this-\/>lineSensor.get\_value()\ <\ LOCO\_CONFIG::LINE\_SENSOR\_THRESHOLD;}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ std::optional<double>\ \mbox{\hyperlink{class_line_sensor_model_ad378fe5e9415e7b9df1e2e1e62f93716}{p}}(\textcolor{keyword}{const}\ Eigen::Vector3f\&\ x)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ Eigen::Vector2f\ sensor\_position\ =\ Eigen::Rotation2Df(x.z())\ *\ sensorOffset\ +\ x.head<2>();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ predictedDistance\ =\ 50.0\_m;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{float}\ lines\_y\ :\ LINES\_Y)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ predictedDistance\ =\ std::min(abs(sensor\_position.y()\ -\/\ lines\_y)\ *\ metre,\ predictedDistance);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ predicted\ =\ predictedDistance\ <\ LOCO\_CONFIG::LINE\_SENSOR\_DISTANCE\_THRESHOLD;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (predicted\ \&\&\ measured)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ *\ LOCO\_CONFIG::LINE\_WEIGHT;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!predicted\ \&\&\ !measured)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ *\ LOCO\_CONFIG::LINE\_WEIGHT;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.4\ *\ LOCO\_CONFIG::LINE\_WEIGHT;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_line_sensor_model}{\string~LineSensorModel}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00055\ \};}
+
+\end{DoxyCode}

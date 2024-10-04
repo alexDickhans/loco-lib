@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="class_particle_filter" kind="class" language="C++" prot="public">
+    <compoundname>ParticleFilter</compoundname>
+    <includes refid="particle_filter_8h" local="no">particleFilter.h</includes>
+    <templateparamlist>
+      <param>
+        <type>size_t</type>
+        <declname>L</declname>
+        <defname>L</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_particle_filter_1abdc8058eaecb19a9929551c086f0388c" prot="private" static="no" mutable="no">
+        <type>std::array&lt; std::array&lt; float, 2 &gt;, L &gt;</type>
+        <definition>std::array&lt;std::array&lt;float, 2&gt;, L&gt; ParticleFilter&lt; L &gt;::particles</definition>
+        <argsstring></argsstring>
+        <name>particles</name>
+        <qualifiedname>ParticleFilter::particles</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="30" column="16" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1aa5b258786931832bd99ae88afc59299b" prot="private" static="no" mutable="no">
+        <type>std::array&lt; std::array&lt; float, 2 &gt;, L &gt;</type>
+        <definition>std::array&lt;std::array&lt;float, 2&gt;, L&gt; ParticleFilter&lt; L &gt;::oldParticles</definition>
+        <argsstring></argsstring>
+        <name>oldParticles</name>
+        <qualifiedname>ParticleFilter::oldParticles</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="31" column="16" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a195fd10b5683a646dafeb773575656c5" prot="private" static="no" mutable="no">
+        <type>std::array&lt; float, L &gt;</type>
+        <definition>std::array&lt;float, L&gt; ParticleFilter&lt; L &gt;::weights</definition>
+        <argsstring></argsstring>
+        <name>weights</name>
+        <qualifiedname>ParticleFilter::weights</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="32" column="16" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1ab315fa14d983b83b2f29e284efe61995" prot="private" static="no" mutable="no">
+        <type>Eigen::Vector3f</type>
+        <definition>Eigen::Vector3f ParticleFilter&lt; L &gt;::prediction</definition>
+        <argsstring></argsstring>
+        <name>prediction</name>
+        <qualifiedname>ParticleFilter::prediction</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="34" column="21" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1aa531ada1062cb9651ab4a8a41dea0662" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_sensor_model" kindref="compound">SensorModel</ref> * &gt;</type>
+        <definition>std::vector&lt;SensorModel *&gt; ParticleFilter&lt; L &gt;::sensors</definition>
+        <argsstring></argsstring>
+        <name>sensors</name>
+        <qualifiedname>ParticleFilter::sensors</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="36" column="17" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a2fe174e1543b32155e6b2015dbd6c7a5" prot="private" static="no" mutable="no">
+        <type>QLength</type>
+        <definition>QLength ParticleFilter&lt; L &gt;::distanceSinceUpdate</definition>
+        <argsstring></argsstring>
+        <name>distanceSinceUpdate</name>
+        <qualifiedname>ParticleFilter::distanceSinceUpdate</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="38" column="13" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a67a363e989f0aef401ef9298f9261dad" prot="private" static="no" mutable="no">
+        <type>QTime</type>
+        <definition>QTime ParticleFilter&lt; L &gt;::lastUpdateTime</definition>
+        <argsstring></argsstring>
+        <name>lastUpdateTime</name>
+        <qualifiedname>ParticleFilter::lastUpdateTime</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="39" column="11" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a15ab2f6ee77741f6cb0dee77c07961ec" prot="private" static="no" mutable="no">
+        <type>QLength</type>
+        <definition>QLength ParticleFilter&lt; L &gt;::maxDistanceSinceUpdate</definition>
+        <argsstring></argsstring>
+        <name>maxDistanceSinceUpdate</name>
+        <qualifiedname>ParticleFilter::maxDistanceSinceUpdate</qualifiedname>
+        <initializer>= 1_in</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="41" column="13" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a38b51cc9da60557335e7a92153b056e4" prot="private" static="no" mutable="no">
+        <type>QTime</type>
+        <definition>QTime ParticleFilter&lt; L &gt;::maxUpdateInterval</definition>
+        <argsstring></argsstring>
+        <name>maxUpdateInterval</name>
+        <qualifiedname>ParticleFilter::maxUpdateInterval</qualifiedname>
+        <initializer>= 2_s</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="42" column="11" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a164ad8c7a996f13afb791715ea9d9bf3" prot="private" static="no" mutable="no">
+        <type>std::function&lt; Angle()&gt;</type>
+        <definition>std::function&lt;Angle()&gt; ParticleFilter&lt; L &gt;::angleFunction</definition>
+        <argsstring></argsstring>
+        <name>angleFunction</name>
+        <qualifiedname>ParticleFilter::angleFunction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="44" column="19" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a1b329cfd1e3935d6e7c789aaa3d11e34" prot="private" static="no" mutable="no">
+        <type>std::ranlux24_base</type>
+        <definition>std::ranlux24_base ParticleFilter&lt; L &gt;::de</definition>
+        <argsstring></argsstring>
+        <name>de</name>
+        <qualifiedname>ParticleFilter::de</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="45" column="24" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_particle_filter_1a4ca4e2c0041e4e13a35f21cbfe69bc6f" prot="private" static="no" mutable="no">
+        <type>std::uniform_real_distribution</type>
+        <definition>std::uniform_real_distribution ParticleFilter&lt; L &gt;::fieldDist</definition>
+        <argsstring></argsstring>
+        <name>fieldDist</name>
+        <qualifiedname>ParticleFilter::fieldDist</qualifiedname>
+        <initializer>{-1.78308, 1.78308}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="47" column="6" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="47" bodyend="47"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_particle_filter_1a309a7a6f29058179289661a976bff859" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ParticleFilter&lt; L &gt;::ParticleFilter</definition>
+        <argsstring>(std::function&lt; Angle()&gt; angle_function)</argsstring>
+        <name>ParticleFilter</name>
+        <qualifiedname>ParticleFilter::ParticleFilter</qualifiedname>
+        <param>
+          <type>std::function&lt; Angle()&gt;</type>
+          <declname>angle_function</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="50" column="14" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="50" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1a03a610e757354012f8df22a9ce4fde47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Eigen::Vector3f</type>
+        <definition>Eigen::Vector3f ParticleFilter&lt; L &gt;::getPrediction</definition>
+        <argsstring>()</argsstring>
+        <name>getPrediction</name>
+        <qualifiedname>ParticleFilter::getPrediction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="58" column="21" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="58" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1a92d1fbe1fd4c9514a71458d59d00e63f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::array&lt; Eigen::Vector3f, L &gt;</type>
+        <definition>std::array&lt; Eigen::Vector3f, L &gt; ParticleFilter&lt; L &gt;::getParticles</definition>
+        <argsstring>()</argsstring>
+        <name>getParticles</name>
+        <qualifiedname>ParticleFilter::getParticles</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="62" column="16" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="62" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1ae82348f650b227483edce2411af517e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Eigen::Vector3f</type>
+        <definition>Eigen::Vector3f ParticleFilter&lt; L &gt;::getParticle</definition>
+        <argsstring>(size_t i)</argsstring>
+        <name>getParticle</name>
+        <qualifiedname>ParticleFilter::getParticle</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="74" column="21" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="74" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1a57678e7483fadfccf9e3afef90017045" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParticleFilter&lt; L &gt;::update</definition>
+        <argsstring>(const std::function&lt; Eigen::Vector2f()&gt; &amp;predictionFunction)</argsstring>
+        <name>update</name>
+        <qualifiedname>ParticleFilter::update</qualifiedname>
+        <param>
+          <type>const std::function&lt; Eigen::Vector2f()&gt; &amp;</type>
+          <declname>predictionFunction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="78" column="10" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="78" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1af75afabb9243c418a1290937bfa987dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParticleFilter&lt; L &gt;::initNormal</definition>
+        <argsstring>(const Eigen::Vector2f &amp;mean, const Eigen::Matrix2f &amp;covariance, const bool flip)</argsstring>
+        <name>initNormal</name>
+        <qualifiedname>ParticleFilter::initNormal</qualifiedname>
+        <param>
+          <type>const Eigen::Vector2f &amp;</type>
+          <declname>mean</declname>
+        </param>
+        <param>
+          <type>const Eigen::Matrix2f &amp;</type>
+          <declname>covariance</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>flip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="169" column="10" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="169" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1a583a977f2bc8a7c1b75dd2e06c4eac65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParticleFilter&lt; L &gt;::initUniform</definition>
+        <argsstring>(const QLength minX, const QLength minY, const QLength maxX, const QLength maxY)</argsstring>
+        <name>initUniform</name>
+        <qualifiedname>ParticleFilter::initUniform</qualifiedname>
+        <param>
+          <type>const QLength</type>
+          <declname>minX</declname>
+        </param>
+        <param>
+          <type>const QLength</type>
+          <declname>minY</declname>
+        </param>
+        <param>
+          <type>const QLength</type>
+          <declname>maxX</declname>
+        </param>
+        <param>
+          <type>const QLength</type>
+          <declname>maxY</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="184" column="10" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="184" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1a652ce905d00ad7d70261bac9983e8cfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParticleFilter&lt; L &gt;::addSensor</definition>
+        <argsstring>(SensorModel *sensor)</argsstring>
+        <name>addSensor</name>
+        <qualifiedname>ParticleFilter::addSensor</qualifiedname>
+        <param>
+          <type><ref refid="class_sensor_model" kindref="compound">SensorModel</ref> *</type>
+          <declname>sensor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="194" column="10" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="194" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_particle_filter_1a2e7fbaa5e138d9cdbf80c2e59928273b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Angle</type>
+        <definition>Angle ParticleFilter&lt; L &gt;::getAngle</definition>
+        <argsstring>()</argsstring>
+        <name>getAngle</name>
+        <qualifiedname>ParticleFilter::getAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="198" column="11" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="198" bodyend="200"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_particle_filter_1ab1ca6d5945853c2f57abac469107bbf4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool ParticleFilter&lt; L &gt;::outOfField</definition>
+        <argsstring>(const std::array&lt; float, 2 &gt; &amp;vector)</argsstring>
+        <name>outOfField</name>
+        <qualifiedname>ParticleFilter::outOfField</qualifiedname>
+        <param>
+          <type>const std::array&lt; float, 2 &gt; &amp;</type>
+          <declname>vector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="180" column="17" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="180" bodyend="182"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Initializes a particle filter with a pre-specified number of particles. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="warning"><para>Due to current efficiency limitations, the particle limit is 500 (Takes approximately 6ms to compute each frame). For calculating frame time, estimate processing time to be 12µs/particle.</para>
+</simplesect>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>L</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of particle to initialize the filter with. More is generally better for accuracy, however there are diminishing returns once the particle count is greater than 100, view warning for notes on large particle quantities. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" line="22" column="1" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h" bodystart="22" bodyend="201"/>
+    <listofallmembers>
+      <member refid="class_particle_filter_1a652ce905d00ad7d70261bac9983e8cfa" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>addSensor</name></member>
+      <member refid="class_particle_filter_1a164ad8c7a996f13afb791715ea9d9bf3" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>angleFunction</name></member>
+      <member refid="class_particle_filter_1a1b329cfd1e3935d6e7c789aaa3d11e34" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>de</name></member>
+      <member refid="class_particle_filter_1a2fe174e1543b32155e6b2015dbd6c7a5" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>distanceSinceUpdate</name></member>
+      <member refid="class_particle_filter_1a4ca4e2c0041e4e13a35f21cbfe69bc6f" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>fieldDist</name></member>
+      <member refid="class_particle_filter_1a2e7fbaa5e138d9cdbf80c2e59928273b" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>getAngle</name></member>
+      <member refid="class_particle_filter_1ae82348f650b227483edce2411af517e5" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>getParticle</name></member>
+      <member refid="class_particle_filter_1a92d1fbe1fd4c9514a71458d59d00e63f" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>getParticles</name></member>
+      <member refid="class_particle_filter_1a03a610e757354012f8df22a9ce4fde47" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>getPrediction</name></member>
+      <member refid="class_particle_filter_1af75afabb9243c418a1290937bfa987dd" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>initNormal</name></member>
+      <member refid="class_particle_filter_1a583a977f2bc8a7c1b75dd2e06c4eac65" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>initUniform</name></member>
+      <member refid="class_particle_filter_1a67a363e989f0aef401ef9298f9261dad" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>lastUpdateTime</name></member>
+      <member refid="class_particle_filter_1a15ab2f6ee77741f6cb0dee77c07961ec" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>maxDistanceSinceUpdate</name></member>
+      <member refid="class_particle_filter_1a38b51cc9da60557335e7a92153b056e4" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>maxUpdateInterval</name></member>
+      <member refid="class_particle_filter_1aa5b258786931832bd99ae88afc59299b" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>oldParticles</name></member>
+      <member refid="class_particle_filter_1ab1ca6d5945853c2f57abac469107bbf4" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>outOfField</name></member>
+      <member refid="class_particle_filter_1a309a7a6f29058179289661a976bff859" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>ParticleFilter</name></member>
+      <member refid="class_particle_filter_1abdc8058eaecb19a9929551c086f0388c" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>particles</name></member>
+      <member refid="class_particle_filter_1ab315fa14d983b83b2f29e284efe61995" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>prediction</name></member>
+      <member refid="class_particle_filter_1aa531ada1062cb9651ab4a8a41dea0662" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>sensors</name></member>
+      <member refid="class_particle_filter_1a57678e7483fadfccf9e3afef90017045" prot="public" virt="non-virtual"><scope>ParticleFilter</scope><name>update</name></member>
+      <member refid="class_particle_filter_1a195fd10b5683a646dafeb773575656c5" prot="private" virt="non-virtual"><scope>ParticleFilter</scope><name>weights</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

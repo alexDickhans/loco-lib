@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="class_sensor_model" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>SensorModel</compoundname>
+    <derivedcompoundref refid="class_distance_sensor_model" prot="public" virt="non-virtual">DistanceSensorModel</derivedcompoundref>
+    <derivedcompoundref refid="class_gps_sensor_model" prot="public" virt="non-virtual">GpsSensorModel</derivedcompoundref>
+    <derivedcompoundref refid="class_line_sensor_model" prot="public" virt="non-virtual">LineSensorModel</derivedcompoundref>
+    <includes refid="sensor_model_8h" local="no">sensorModel.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::optional&lt; double &gt;</type>
+        <definition>virtual std::optional&lt; double &gt; SensorModel::p</definition>
+        <argsstring>(const Eigen::Vector3f &amp;x)=0</argsstring>
+        <name>p</name>
+        <qualifiedname>SensorModel::p</qualifiedname>
+        <reimplementedby refid="class_distance_sensor_model_1ad73b55b4fb45651fead2802942adf135">p</reimplementedby>
+        <reimplementedby refid="class_gps_sensor_model_1a45988e308048fa90d171e8a35bcee487">p</reimplementedby>
+        <reimplementedby refid="class_line_sensor_model_1ad378fe5e9415e7b9df1e2e1e62f93716">p</reimplementedby>
+        <param>
+          <type>const Eigen::Vector3f &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Determine p(z_k, x_k). This is the chance that this sensor reading (z_k) would occur given the robot would be at that particle (x_k). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The current particle&apos;s position </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of p(z_k, x_k) </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/sensorModel.h" line="14" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void SensorModel::update</definition>
+        <argsstring>()=0</argsstring>
+        <name>update</name>
+        <qualifiedname>SensorModel::update</qualifiedname>
+        <reimplementedby refid="class_distance_sensor_model_1a1b691034552e9472807073bcface92f5">update</reimplementedby>
+        <reimplementedby refid="class_gps_sensor_model_1abd0fa91ecf89e4ca36aab41c2c60126e">update</reimplementedby>
+        <reimplementedby refid="class_line_sensor_model_1a055567b171c5405d2af8f3ac729e058a">update</reimplementedby>
+        <briefdescription>
+<para>Update object with sensor readings, this function is called every frame (~10ms) and should be used to stash expensive, one time computations before all the particles are calculated, this always runs before p(x) each frame. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/sensorModel.h" line="19" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_sensor_model_1af126ce3352b705de464b895ee0155472" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual SensorModel::~SensorModel</definition>
+        <argsstring>()=default</argsstring>
+        <name>~SensorModel</name>
+        <qualifiedname>SensorModel::~SensorModel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/sensorModel.h" line="21" column="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Defiens a <ref refid="class_sensor_model" kindref="compound">SensorModel</ref> to be used in the <ref refid="class_particle_filter" kindref="compound">ParticleFilter</ref>. This is used in the update step to revise the filter&apos;s belief. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DistanceSensorModel</label>
+        <link refid="class_distance_sensor_model"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GpsSensorModel</label>
+        <link refid="class_gps_sensor_model"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>LineSensorModel</label>
+        <link refid="class_line_sensor_model"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>SensorModel</label>
+        <link refid="class_sensor_model"/>
+      </node>
+    </inheritancegraph>
+    <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/sensorModel.h" line="6" column="1" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/sensorModel.h" bodystart="6" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1" prot="public" virt="pure-virtual"><scope>SensorModel</scope><name>p</name></member>
+      <member refid="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e" prot="public" virt="pure-virtual"><scope>SensorModel</scope><name>update</name></member>
+      <member refid="class_sensor_model_1af126ce3352b705de464b895ee0155472" prot="public" virt="virtual"><scope>SensorModel</scope><name>~SensorModel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

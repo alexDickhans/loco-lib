@@ -1,0 +1,18 @@
+name: Populate Depot json
+
+on:
+  release:
+  workflow_dispatch:
+
+jobs:
+  populate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: LemLib/pros-depot@v0.1.0-beta.1
+        with:
+          token: ${{ github.token }}
+          repo: alexDickhans/locolib
+          source-repo: alexDickhans/locolib
+          readable-json: true

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="namespace_l_o_c_o___c_o_n_f_i_g" kind="namespace" language="C++">
+    <compoundname>LOCO_CONFIG</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="config_8h_1a0d3862d9caa518956f15a857c85699e1" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr size_t</type>
+        <definition>constexpr size_t LOCO_CONFIG::LINE_SENSOR_THRESHOLD</definition>
+        <argsstring></argsstring>
+        <name>LINE_SENSOR_THRESHOLD</name>
+        <qualifiedname>LOCO_CONFIG::LINE_SENSOR_THRESHOLD</qualifiedname>
+        <initializer>= 2000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" line="4" column="18" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="config_8h_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr QLength</type>
+        <definition>constexpr QLength LOCO_CONFIG::LINE_SENSOR_DISTANCE_THRESHOLD</definition>
+        <argsstring></argsstring>
+        <name>LINE_SENSOR_DISTANCE_THRESHOLD</name>
+        <qualifiedname>LOCO_CONFIG::LINE_SENSOR_DISTANCE_THRESHOLD</qualifiedname>
+        <initializer>= 3_in</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" line="5" column="19" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="config_8h_1a4f7b8f8ab4377f6ad1064c00f365479b" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr float</type>
+        <definition>constexpr float LOCO_CONFIG::DISTANCE_WEIGHT</definition>
+        <argsstring></argsstring>
+        <name>DISTANCE_WEIGHT</name>
+        <qualifiedname>LOCO_CONFIG::DISTANCE_WEIGHT</qualifiedname>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" line="7" column="17" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="config_8h_1a06502e38c143a050aa0b82d1e34b6b6b" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr float</type>
+        <definition>constexpr float LOCO_CONFIG::GPS_WEIGHT</definition>
+        <argsstring></argsstring>
+        <name>GPS_WEIGHT</name>
+        <qualifiedname>LOCO_CONFIG::GPS_WEIGHT</qualifiedname>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" line="8" column="17" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="config_8h_1ad64efe965937b0eebfdfddaa5f7b9347" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr float</type>
+        <definition>constexpr float LOCO_CONFIG::LINE_WEIGHT</definition>
+        <argsstring></argsstring>
+        <name>LINE_WEIGHT</name>
+        <qualifiedname>LOCO_CONFIG::LINE_WEIGHT</qualifiedname>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" line="9" column="17" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h" line="3" column="1"/>
+  </compounddef>
+</doxygen>

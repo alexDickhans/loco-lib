@@ -4,7 +4,7 @@
 #include "sensorModel.h"
 #include "utils.h"
 
-class GpsSensor : public SensorModel {
+class GpsSensorModel : public SensorModel {
 private:
 	pros::Gps gps;
 	Angle sensorAngleOffset;
@@ -12,7 +12,7 @@ private:
 	double std{0.0};
 	bool notInstalled{false};
 public:
-	GpsSensor(const Angle sensorAngleOffset, pros::Gps gps)
+	GpsSensorModel(const Angle sensorAngleOffset, pros::Gps gps)
 		: gps(std::move(gps)),
 		  sensorAngleOffset(sensorAngleOffset) {
 	}
@@ -42,5 +42,5 @@ public:
 		return gps;
 	}
 
-	~GpsSensor() override = default;
+	~GpsSensorModel() override = default;
 };

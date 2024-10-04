@@ -1,0 +1,62 @@
+\doxysection{Line\+Sensor\+Model Class Reference}
+\hypertarget{class_line_sensor_model}{}\label{class_line_sensor_model}\index{LineSensorModel@{LineSensorModel}}
+Inheritance diagram for Line\+Sensor\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_line_sensor_model}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_line_sensor_model_ad9473b2ab77fe5551d320db1ab05c9a5}\label{class_line_sensor_model_ad9473b2ab77fe5551d320db1ab05c9a5} 
+{\bfseries Line\+Sensor\+Model} (Eigen\+::\+Vector2f sensor\+\_\+offset, pros\+::adi\+::\+Line\+Sensor line\+\_\+sensor)
+\item 
+void \mbox{\hyperlink{class_line_sensor_model_a055567b171c5405d2af8f3ac729e058a}{update}} () override
+\begin{DoxyCompactList}\small\item\em Update object with sensor readings, this function is called every frame (\texorpdfstring{$\sim$}{\string~}10ms) and should be used to stash expensive, one time computations before all the particles are calculated, this always runs before p(x) each frame. \end{DoxyCompactList}\item 
+std\+::optional$<$ double $>$ \mbox{\hyperlink{class_line_sensor_model_ad378fe5e9415e7b9df1e2e1e62f93716}{p}} (const Eigen\+::\+Vector3f \&x) override
+\begin{DoxyCompactList}\small\item\em Determine p(z\+\_\+k, x\+\_\+k). This is the chance that this sensor reading (z\+\_\+k) would occur given the robot would be at that particle (x\+\_\+k). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_line_sensor_model_ad378fe5e9415e7b9df1e2e1e62f93716}\label{class_line_sensor_model_ad378fe5e9415e7b9df1e2e1e62f93716} 
+\index{LineSensorModel@{LineSensorModel}!p@{p}}
+\index{p@{p}!LineSensorModel@{LineSensorModel}}
+\doxysubsubsection{\texorpdfstring{p()}{p()}}
+{\footnotesize\ttfamily std\+::optional$<$ double $>$ Line\+Sensor\+Model\+::p (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector3f \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Determine p(z\+\_\+k, x\+\_\+k). This is the chance that this sensor reading (z\+\_\+k) would occur given the robot would be at that particle (x\+\_\+k). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The current particle\textquotesingle{}s position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of p(z\+\_\+k, x\+\_\+k) 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_sensor_model_a39aea7b966a95a3579714f84b408f6a1}{Sensor\+Model}}.
+
+\Hypertarget{class_line_sensor_model_a055567b171c5405d2af8f3ac729e058a}\label{class_line_sensor_model_a055567b171c5405d2af8f3ac729e058a} 
+\index{LineSensorModel@{LineSensorModel}!update@{update}}
+\index{update@{update}!LineSensorModel@{LineSensorModel}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Line\+Sensor\+Model\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Update object with sensor readings, this function is called every frame (\texorpdfstring{$\sim$}{\string~}10ms) and should be used to stash expensive, one time computations before all the particles are calculated, this always runs before p(x) each frame. 
+
+
+
+Implements \mbox{\hyperlink{class_sensor_model_a28672cf65d6e6a9bc967e5661d26e21e}{Sensor\+Model}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/alex/\+Documents/\+VEX/loco-\/lib/include/localization/line.\+h\end{DoxyCompactItemize}

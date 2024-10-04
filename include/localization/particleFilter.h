@@ -13,7 +13,7 @@
  * @brief Initializes a particle filter with a pre-specified number of particles.
  *
  * @warning Due to current efficiency limitations, the particle limit is 500 (Takes approximately 6ms to compute each
- * frame). For calculating frame time, estimate processing time to be 12µs.
+ * frame). For calculating frame time, estimate processing time to be 12µs/particle.
  *
  * @tparam L Number of particle to initialize the filter with. More is generally better for accuracy, however there are
  * diminishing returns once the particle count is greater than 100, view warning for notes on large particle quantities.
