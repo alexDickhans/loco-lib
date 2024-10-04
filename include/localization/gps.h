@@ -1,10 +1,10 @@
 #pragma once
 
 #include "config.h"
-#include "sensor.h"
-#include "utils/utils.h"
+#include "sensorModel.h"
+#include "utils.h"
 
-class GpsSensor : public Sensor {
+class GpsSensor : public SensorModel {
 private:
 	pros::Gps gps;
 	Angle sensorAngleOffset;

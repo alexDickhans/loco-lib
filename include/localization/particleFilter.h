@@ -2,7 +2,7 @@
 
 #include "Eigen/Eigen"
 #include "units/units.hpp"
-#include "sensor.h"
+#include "sensorModel.h"
 
 #include <random>
 #include <algorithm>
@@ -10,7 +10,7 @@
 #include "config.h"
 
 /**
- * @brief Initializes a particle filter with a prespecified number of particles.
+ * @brief Initializes a particle filter with a pre-specified number of particles.
  *
  * @warning Due to current efficiency limitations, the particle limit is 500 (Takes approximately 6ms to compute each
  * frame). For calculating frame time, estimate processing time to be 12µs.
@@ -20,16 +20,20 @@
  */
 template<size_t L>
 class ParticleFilter {
+    // Ensure particles are less than the max of 500 particles
     static_assert(std::less_equal<size_t>()(L, 500));
 
 private:
+    /**
+     *
+     */
     std::array<std::array<float, 2>, L> particles;
     std::array<std::array<float, 2>, L> oldParticles;
-    std::array<double, L> weights;
+    std::array<float, L> weights;
 
     Eigen::Vector3f prediction{};
 
-    std::vector<Sensor *> sensors;
+    std::vector<SensorModel *> sensors;
 
     QLength distanceSinceUpdate = 0.0;
     QTime lastUpdateTime = 0.0;
@@ -187,7 +191,7 @@ public:
         }
     }
 
-    void addSensor(Sensor *sensor) {
+    void addSensor(SensorModel *sensor) {
         this->sensors.emplace_back(sensor);
     }
 

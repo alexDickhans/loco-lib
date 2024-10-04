@@ -1,8 +1,8 @@
 #pragma once
 
 #include "config.h"
-#include "sensor.h"
-#include "config.h"
+#include "sensorModel.h"
+#include "utils.h"
 
 const std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f>> LINES = {
 	{{-1.78308, 0}, {1.78308, 0}},
@@ -16,7 +16,7 @@ const std::vector<float> LINES_Y = {
 	-1.47828,
 };
 
-class LineSensor : public Sensor {
+class LineSensor : public SensorModel {
 private:
 	Eigen::Vector2f sensorOffset;
 	pros::adi::LineSensor lineSensor;
