@@ -2,46 +2,72 @@
 
 #include "sensor.h"
 
-const std::vector<std::pair<Eigen::Vector2d, Eigen::Vector2d>> WALLS = {};
+const std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f>> WALLS = {
+	{{1.78308, 1.78308}, {1.78308, -1.78308}},
+	{{1.78308, -1.78308}, {-1.78308, -1.78308}},
+	{{-1.78308, -1.78308}, {-1.78308, 1.78308}},
+	{{-1.78308, 1.78308}, {1.78308, 1.78308}},
+};
+
+constexpr float WALL_0_X = 1.78308;
+constexpr float WALL_1_Y = 1.78308;
+constexpr float WALL_2_X = -1.78308;
+constexpr float WALL_3_Y = -1.78308;
 
 class Distance : public Sensor {
 private:
-	Eigen::Vector3d sensorOffset;
+	Eigen::Vector3f sensorOffset;
 	pros::Distance distance;
+
+	QLength measured = 0.0;
+	bool exit = false;
+	QLength std = 0.0;
 public:
-	Distance(Eigen::Vector3d sensor_offset, pros::Distance distance)
+	Distance(Eigen::Vector3f sensor_offset, pros::Distance distance)
 		: sensorOffset(std::move(sensor_offset)),
 		  distance(std::move(distance)) {
 	}
 
-	std::optional<double> p(Eigen::Vector3d x) override {
-		const auto measured = distance.get();
+	void update() override {
+		const auto measuredMM = distance.get();
 
-		if (measured == 9999 || distance.get_object_size() < 50) {
+		exit = measuredMM == 9999 || distance.get_object_size() < 70;
+
+		measured = measuredMM * millimetre;
+
+		std = 0.20 * measured / (distance.get_confidence() / 64.0);
+
+	}
+
+	[[nodiscard]] std::optional<double> p(const Eigen::Vector3f& X) override {
+
+		if (exit) {
 			return std::nullopt;
 		}
 
-		const auto measuredMeters = measured * 1_mm;
+		auto angle = X.z() + sensorOffset.z();
 
-		auto v_1 = Eigen::Rotation2Dd(x.z()) * sensorOffset.head<2>();
-		auto v_2 = Eigen::Rotation2Dd(sensorOffset.z() + x.z()) * Eigen::Vector2d(1.0, 0.0) + v_1;
+		Eigen::Vector2f x = X.head<2>() + Eigen::Rotation2Df(X.z()) * sensorOffset.head<2>();
 
-		auto predicted = 50_m;
+		auto predicted = 50.0f;
 
-		for (const auto & [v_3, v_4] : WALLS) {
-			auto t = ((v_1.x() - v_3.x()) * (v_3.y() - v_4.y())
-					- (v_1.y() - v_3.y()) * (v_3.x() - v_4.x()))
-					/ ((v_1.x() - v_2.x()) * (v_3.y() - v_4.y())
-						- (v_1.y() - v_2.y()) * (v_3.x() - v_4.x()));
-
-			if (t > 0.0 && finite(t)) {
-				predicted = std::min(predicted, t * metre);
-			}
+		if (const auto theta = abs(angleDifference(0_deg, angle).getValue()); theta < M_PI_2) {
+			predicted = std::min((WALL_0_X - x.x()) / cos(theta), predicted);
 		}
 
-		const auto std = 0.025 * predicted / (distance.get_confidence() / 64.0);
+		if (const auto theta = abs(angleDifference(90_deg, angle).getValue()); theta < M_PI_2) {
+			predicted = std::min((WALL_1_Y - x.y()) / cos(theta), predicted);
+		}
 
-		return normal_pdf(measuredMeters.getValue(), predicted.getValue(), std.getValue()) * LOCO_CONFIG::DISTANCE_WEIGHT;
+		if (const auto theta = abs(angleDifference(180_deg, angle).getValue()); theta < M_PI_2) {
+			predicted = std::min((x.x() - WALL_2_X) / cos(theta), predicted);
+		}
+
+		if (const auto theta = abs(angleDifference(270_deg, angle).getValue()); theta < M_PI_2) {
+			predicted = std::min((x.y() - WALL_3_Y) / cos(theta), predicted);
+		}
+
+		return cheap_norm_pdf((predicted - measured.getValue())/std.getValue()) * LOCO_CONFIG::DISTANCE_WEIGHT;
 	}
 
 	~Distance() override = default;

@@ -8,27 +8,38 @@ class GpsSensor : public Sensor {
 private:
 	pros::Gps gps;
 	Angle sensorAngleOffset;
+	Eigen::Vector2f point{};
+	double std{0.0};
+	bool notInstalled{false};
 public:
-	GpsSensor(pros::Gps gps, const Angle sensorAngleOffset)
+	GpsSensor(const Angle sensorAngleOffset, pros::Gps gps)
 		: gps(std::move(gps)),
 		  sensorAngleOffset(sensorAngleOffset) {
 	}
 
-	std::optional<double> p(Eigen::Vector3d X) override {
-		if (!gps.is_installed()) {
+	void update() override {
+		notInstalled = !gps.is_installed() || gps.get_error() > 0.015;
+		auto [x, y] = gps.get_position();
+
+		point = Eigen::Vector2f(-y, x);
+
+		std = gps.get_error() * 8.0;
+	}
+
+	std::optional<double> p(const Eigen::Vector3f& X) override {
+		if (notInstalled) [[unlikely]] {
 			return std::nullopt;
 		}
 
-		// TODO: Flag stuff
+		return cheap_norm_pdf(sqrt(X.x() * point.x() + X.y() * point.y()) / 2.0f) * LOCO_CONFIG::GPS_WEIGHT;
+	}
 
-		auto [x, y] = gps.get_position();
+	Angle getAngle() {
+		return -gps.get_yaw() * 1_deg - sensorAngleOffset;
+	}
 
-		const auto std = gps.get_error();
-
-		const auto point = Eigen::Vector2d(x, y);
-		const auto predicted = Eigen::Vector2d(X.x(), X.y());
-
-		return normal_pdf((point - predicted).norm(), 0.0, std) * LOCO_CONFIG::GPS_WEIGHT;
+	pros::Gps& getGps() {
+		return gps;
 	}
 
 	~GpsSensor() override = default;
