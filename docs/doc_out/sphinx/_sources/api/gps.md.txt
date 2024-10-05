@@ -1,5 +1,5 @@
 # GpsSensorModel
 
-```{doxygenclass} GpsSensorModel
+```{doxygenclass} loco::GpsSensorModel
 :members:
 ```

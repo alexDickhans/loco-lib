@@ -13,183 +13,185 @@
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}config.h"{}}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00021\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ L>}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_particle_filter}{ParticleFilter}}\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Ensure\ particles\ are\ less\ than\ the\ max\ of\ 500\ particles}}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::less\_equal<size\_t>()(L,\ 500));}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00030\ \ \ \ \ std::array<std::array<float,\ 2>,\ L>\ particles;}
-\DoxyCodeLine{00031\ \ \ \ \ std::array<std::array<float,\ 2>,\ L>\ oldParticles;}
-\DoxyCodeLine{00032\ \ \ \ \ std::array<float,\ L>\ weights;}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ Eigen::Vector3f\ prediction\{\};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ std::vector<SensorModel\ *>\ sensors;}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ QLength\ distanceSinceUpdate\ =\ 0.0;}
-\DoxyCodeLine{00039\ \ \ \ \ QTime\ lastUpdateTime\ =\ 0.0;}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ QLength\ maxDistanceSinceUpdate\ =\ 1\_in;}
-\DoxyCodeLine{00042\ \ \ \ \ QTime\ maxUpdateInterval\ =\ 2\_s;}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ std::function<Angle()>\ angleFunction;}
-\DoxyCodeLine{00045\ \ \ \ \ std::ranlux24\_base\ de;}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ std::uniform\_real\_distribution<>\ fieldDist\{-\/1.78308,\ 1.78308\};}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_particle_filter}{ParticleFilter}}(std::function<Angle()>\ angle\_function)}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ :\ angleFunction(std::move(angle\_function))\ \{}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ particles)\ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ =\ 0.0;}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ =\ 0.0;}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00056\ \ \ \ \ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ Eigen::Vector3f\ getPrediction()\ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ prediction;}
-\DoxyCodeLine{00060\ \ \ \ \ \}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ std::array<Eigen::Vector3f,\ L>\ getParticles()\ \{}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::array<Eigen::Vector3f,\ L>\ particles;}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Angle\ angle\ =\ angleFunction();}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ L;\ i++)\ \{}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ particles[i]\ =\ Eigen::Vector3f(this-\/>particles[i][0],\ this-\/>particles[i][1],\ angle.getValue());}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particles;}
-\DoxyCodeLine{00072\ \ \ \ \ \}}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ Eigen::Vector3f\ getParticle(\textcolor{keywordtype}{size\_t}\ i)\ \{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{this-\/>particles[i][0],\ this-\/>particles[i][1],\ angleFunction().getValue()\};}
-\DoxyCodeLine{00076\ \ \ \ \ \}}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ std::function<Eigen::Vector2f()>\ \&predictionFunction)\ \{}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isfinite(angleFunction().getValue()))\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ pros::micros();}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Angle\ angle\ =\ angleFunction();}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ particles)\ \{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ prediction\ =\ predictionFunction();}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ +=\ prediction.x();}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ +=\ prediction.y();}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ distanceSinceUpdate\ +=\ predictionFunction().norm();}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (distanceSinceUpdate\ <\ maxDistanceSinceUpdate\ \&\&\ maxUpdateInterval\ >\ pros::millis()\ *\ millisecond)\ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&sensor:\ this-\/>sensors)\ \{}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ sensor-\/>update();}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ totalWeight\ =\ 0.0;}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ L;\ i++)\ \{}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ weights[i]\ =\ 1.0;}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outOfField(particles[i]))\ \{}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][0]\ =\ fieldDist(de);}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][1]\ =\ fieldDist(de);}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ particle\ =\ Eigen::Vector3f(particles[i][0],\ particles[i][1],\ angle.getValue());}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ sensor:\ sensors)\ \{}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ weight\ =\ sensor-\/>p(particle);\ weight.has\_value()\ \&\&\ isfinite(weight.value()))\ \{}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights[i]\ =\ weights[i]\ *\ weight.value();}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ weights[i]\ =\ weights[i];}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ totalWeight\ =\ totalWeight\ +\ weights[i];}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (totalWeight\ ==\ 0.0)\ \{}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Warning:\ Total\ weight\ equal\ to\ 0"{}}\ <<\ std::endl;}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ avgWeight\ =\ totalWeight\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(L);}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution\ distribution(0.0,\ avgWeight);}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ randWeight\ =\ distribution(de);}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ particles.size();\ i++)\ \{}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ oldParticles[i]\ =\ particles[i];}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ j\ =\ 0;}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cumulativeWeight\ =\ 0.0;}
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ xSum\ =\ 0.0,\ ySum\ =\ 0.0;}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ L;\ i++)\ \{}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ weight\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(i)\ *\ avgWeight\ +\ randWeight;}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (cumulativeWeight\ <\ weight)\ \{}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ >=\ weights.size())\ \{}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cumulativeWeight\ +=\ weights[j];}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j++;}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][0]\ =\ oldParticles[j\ -\/\ 1][0];}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][1]\ =\ oldParticles[j\ -\/\ 1][1];}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ xSum\ +=\ particles[i][0];}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ ySum\ +=\ particles[i][1];}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ prediction\ =\ Eigen::Vector3f(xSum\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(L),\ ySum\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(L),\ angle.getValue());}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ lastUpdateTime\ =\ pros::millis()\ *\ millisecond;}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ distanceSinceUpdate\ =\ 0.0;}
-\DoxyCodeLine{00167\ \ \ \ \ \}}
-\DoxyCodeLine{00168\ }
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ initNormal(\textcolor{keyword}{const}\ Eigen::Vector2f\ \&mean,\ \textcolor{keyword}{const}\ Eigen::Matrix2f\ \&covariance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ flip)\ \{}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ this-\/>particles)\ \{}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Vector2f\ p\ =\ mean\ +\ covariance\ *\ Eigen::Vector2f::Random();}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ =\ p.x();}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ =\ p.y()\ *\ (flip\ ?\ -\/1.0\ :\ 1.0);}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00175\ }
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ prediction.z()\ =\ angleFunction().getValue();}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ distanceSinceUpdate\ +=\ 2.0\ *\ distanceSinceUpdate;}
-\DoxyCodeLine{00178\ \ \ \ \ \}}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ outOfField(\textcolor{keyword}{const}\ std::array<float,\ 2>\ \&vector)\ \{}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector[0]\ >\ 1.78308\ ||\ vector[0]\ <\ -\/1.78308\ ||\ vector[1]\ <\ -\/1.78308\ ||\ vector[1]\ >\ 1.78308;}
-\DoxyCodeLine{00182\ \ \ \ \ \}}
-\DoxyCodeLine{00183\ }
-\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{void}\ initUniform(\textcolor{keyword}{const}\ QLength\ minX,\ \textcolor{keyword}{const}\ QLength\ minY,\ \textcolor{keyword}{const}\ QLength\ maxX,\ \textcolor{keyword}{const}\ QLength\ maxY)\ \{}
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution\ xDistribution(minX.getValue(),\ maxX.getValue());}
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution\ yDistribution(minY.getValue(),\ maxY.getValue());}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ this-\/>particles)\ \{}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ =\ xDistribution(de);}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ =\ yDistribution(de);}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00192\ \ \ \ \ \}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{void}\ addSensor(\mbox{\hyperlink{class_sensor_model}{SensorModel}}\ *sensor)\ \{}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ this-\/>sensors.emplace\_back(sensor);}
-\DoxyCodeLine{00196\ \ \ \ \ \}}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \ \ Angle\ getAngle()\ \{}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ angleFunction();}
-\DoxyCodeLine{00200\ \ \ \ \ \}}
-\DoxyCodeLine{00201\ \};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }loco\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ L>}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classloco_1_1_particle_filter}{ParticleFilter}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ particles\ are\ less\ than\ the\ max\ of\ 500\ particles}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::less\_equal<size\_t>()(L,\ 500));}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ std::array<std::array<float,\ 2>,\ L>\ particles;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::array<std::array<float,\ 2>,\ L>\ oldParticles;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::array<float,\ L>\ weights;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ prediction\{\};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::vector<SensorModel\ *>\ sensors;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ QLength\ distanceSinceUpdate\ =\ 0.0;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ QTime\ lastUpdateTime\ =\ 0.0;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ QLength\ maxDistanceSinceUpdate\ =\ 1\_in;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ QTime\ maxUpdateInterval\ =\ 2\_s;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::function<Angle()>\ angleFunction;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::ranlux24\_base\ de;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution<>\ fieldDist\{-\/1.78308,\ 1.78308\};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classloco_1_1_particle_filter}{ParticleFilter}}(std::function<Angle()>\ angle\_function)}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ :\ angleFunction(std::move(angle\_function))\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ particles)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ =\ 0.0;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ =\ 0.0;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ getPrediction()\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ prediction;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::array<Eigen::Vector3f,\ L>\ getParticles()\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ std::array<Eigen::Vector3f,\ L>\ particles;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Angle\ angle\ =\ angleFunction();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ L;\ i++)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i]\ =\ Eigen::Vector3f(this-\/>particles[i][0],\ this-\/>particles[i][1],\ angle.getValue());}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particles;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ getParticle(\textcolor{keywordtype}{size\_t}\ i)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{this-\/>particles[i][0],\ this-\/>particles[i][1],\ angleFunction().getValue()\};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ std::function<Eigen::Vector2f()>\ \&predictionFunction)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isfinite(angleFunction().getValue()))\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ pros::micros();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Angle\ angle\ =\ angleFunction();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ particles)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ prediction\ =\ predictionFunction();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ +=\ prediction.x();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ +=\ prediction.y();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ distanceSinceUpdate\ +=\ predictionFunction().norm();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (distanceSinceUpdate\ <\ maxDistanceSinceUpdate\ \&\&\ maxUpdateInterval\ >\ pros::millis()\ *\ millisecond)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&sensor:\ this-\/>sensors)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sensor-\/>update();}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ totalWeight\ =\ 0.0;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ L;\ i++)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights[i]\ =\ 1.0;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outOfField(particles[i]))\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][0]\ =\ fieldDist(de);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][1]\ =\ fieldDist(de);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ particle\ =\ Eigen::Vector3f(particles[i][0],\ particles[i][1],\ angle.getValue());}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ sensor:\ sensors)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ weight\ =\ sensor-\/>p(particle);\ weight.has\_value()\ \&\&\ isfinite(weight.value()))\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights[i]\ =\ weights[i]\ *\ weight.value();}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights[i]\ =\ weights[i];}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totalWeight\ =\ totalWeight\ +\ weights[i];}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (totalWeight\ ==\ 0.0)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Warning:\ Total\ weight\ equal\ to\ 0"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ avgWeight\ =\ totalWeight\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(L);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution\ distribution(0.0,\ avgWeight);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ randWeight\ =\ distribution(de);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ particles.size();\ i++)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ oldParticles[i]\ =\ particles[i];}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ j\ =\ 0;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cumulativeWeight\ =\ 0.0;}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ xSum\ =\ 0.0,\ ySum\ =\ 0.0;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ L;\ i++)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ weight\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(i)\ *\ avgWeight\ +\ randWeight;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (cumulativeWeight\ <\ weight)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ >=\ weights.size())\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cumulativeWeight\ +=\ weights[j];}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j++;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][0]\ =\ oldParticles[j\ -\/\ 1][0];}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particles[i][1]\ =\ oldParticles[j\ -\/\ 1][1];}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xSum\ +=\ particles[i][0];}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ySum\ +=\ particles[i][1];}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ prediction\ =\ Eigen::Vector3f(xSum\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(L),\ ySum\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(L),\ angle.getValue());}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ lastUpdateTime\ =\ pros::millis()\ *\ millisecond;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ distanceSinceUpdate\ =\ 0.0;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ initNormal(\textcolor{keyword}{const}\ Eigen::Vector2f\ \&mean,\ \textcolor{keyword}{const}\ Eigen::Matrix2f\ \&covariance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ flip)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ this-\/>particles)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Vector2f\ p\ =\ mean\ +\ covariance\ *\ Eigen::Vector2f::Random();}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ =\ p.x();}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ =\ p.y()\ *\ (flip\ ?\ -\/1.0\ :\ 1.0);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ prediction.z()\ =\ angleFunction().getValue();}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ distanceSinceUpdate\ +=\ 2.0\ *\ distanceSinceUpdate;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ outOfField(\textcolor{keyword}{const}\ std::array<float,\ 2>\ \&vector)\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector[0]\ >\ 1.78308\ ||\ vector[0]\ <\ -\/1.78308\ ||\ vector[1]\ <\ -\/1.78308\ ||\ vector[1]\ >\ 1.78308;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ initUniform(\textcolor{keyword}{const}\ QLength\ minX,\ \textcolor{keyword}{const}\ QLength\ minY,\ \textcolor{keyword}{const}\ QLength\ maxX,\ \textcolor{keyword}{const}\ QLength\ maxY)\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution\ xDistribution(minX.getValue(),\ maxX.getValue());}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution\ yDistribution(minY.getValue(),\ maxY.getValue());}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\&particle:\ this-\/>particles)\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[0]\ =\ xDistribution(de);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particle[1]\ =\ yDistribution(de);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ addSensor(\mbox{\hyperlink{classloco_1_1_sensor_model}{SensorModel}}\ *sensor)\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>sensors.emplace\_back(sensor);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ Angle\ getAngle()\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ angleFunction();}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \};}
+\DoxyCodeLine{00203\ \}}
 
 \end{DoxyCode}

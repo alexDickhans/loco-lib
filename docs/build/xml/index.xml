@@ -1,95 +1,96 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.10.0" xml:lang="en-US">
-  <compound refid="class_distance_sensor_model" kind="class"><name>DistanceSensorModel</name>
-    <member refid="class_distance_sensor_model_1a6bad8ba4631c486be80fe57b17df44e5" kind="variable"><name>sensorOffset</name></member>
-    <member refid="class_distance_sensor_model_1a67501f821f0811cfc916126610a4a4d5" kind="variable"><name>distance</name></member>
-    <member refid="class_distance_sensor_model_1adabaabb80d8ae1c923e81dce6bfc9b3c" kind="variable"><name>measured</name></member>
-    <member refid="class_distance_sensor_model_1a11fdbb3a5de50aadd977278223cdddc2" kind="variable"><name>exit</name></member>
-    <member refid="class_distance_sensor_model_1af46d1949e41af092425835a45669d35d" kind="variable"><name>std</name></member>
-    <member refid="class_distance_sensor_model_1a07c92d06bd73c81a4f8919755f590000" kind="function"><name>DistanceSensorModel</name></member>
-    <member refid="class_distance_sensor_model_1a1b691034552e9472807073bcface92f5" kind="function"><name>update</name></member>
-    <member refid="class_distance_sensor_model_1ad73b55b4fb45651fead2802942adf135" kind="function"><name>p</name></member>
-    <member refid="class_distance_sensor_model_1aa61534c034f816cb7a0ab662b8768503" kind="function"><name>~DistanceSensorModel</name></member>
+  <compound refid="classloco_1_1_distance_sensor_model" kind="class"><name>loco::DistanceSensorModel</name>
+    <member refid="classloco_1_1_distance_sensor_model_1a421d0552caad7e006046f1dd2ad49a5e" kind="variable"><name>sensorOffset</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1af36b0c53f40f92143b9bcb83e66deda4" kind="variable"><name>distance</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1a27defbf46188da3a0241d7786c2fb112" kind="variable"><name>measured</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1a1541abc517109b3f859bba90edfc65e9" kind="variable"><name>exit</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1a0c143e28e3c9b9991bb2fc5726b40785" kind="variable"><name>std</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1a9605c325bfa4ab8579451c562e797802" kind="function"><name>DistanceSensorModel</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1a65c475bd5160f8db26a76643812431b5" kind="function"><name>update</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1af4d8b432f3ad35edb31c65fc6585efc0" kind="function"><name>p</name></member>
+    <member refid="classloco_1_1_distance_sensor_model_1a3fe3c130c54b8fd724f6bf2ec86db323" kind="function"><name>~DistanceSensorModel</name></member>
   </compound>
-  <compound refid="class_gps_sensor_model" kind="class"><name>GpsSensorModel</name>
-    <member refid="class_gps_sensor_model_1a5e393f70f43bef1e9ad13ac47839283e" kind="variable"><name>gps</name></member>
-    <member refid="class_gps_sensor_model_1a82088304b11788b4e233d3f758ba3fae" kind="variable"><name>sensorAngleOffset</name></member>
-    <member refid="class_gps_sensor_model_1a1ceb313c89553f384d44e96182d86971" kind="variable"><name>point</name></member>
-    <member refid="class_gps_sensor_model_1a4a133d55909e39a79431157e01ae3a40" kind="variable"><name>std</name></member>
-    <member refid="class_gps_sensor_model_1a3d54e21493dc319403c9a33ba6c931e8" kind="variable"><name>notInstalled</name></member>
-    <member refid="class_gps_sensor_model_1ad4ca541349df1d569cc2fa4f370a55f4" kind="function"><name>GpsSensorModel</name></member>
-    <member refid="class_gps_sensor_model_1abd0fa91ecf89e4ca36aab41c2c60126e" kind="function"><name>update</name></member>
-    <member refid="class_gps_sensor_model_1a45988e308048fa90d171e8a35bcee487" kind="function"><name>p</name></member>
-    <member refid="class_gps_sensor_model_1a635db48825a46b92de109ccb67a47993" kind="function"><name>getAngle</name></member>
-    <member refid="class_gps_sensor_model_1a9327e9e52f96957d95c069adc96db0da" kind="function"><name>getGps</name></member>
-    <member refid="class_gps_sensor_model_1a8502754c53452d2ff32c797a38a417ed" kind="function"><name>~GpsSensorModel</name></member>
+  <compound refid="classloco_1_1_gps_sensor_model" kind="class"><name>loco::GpsSensorModel</name>
+    <member refid="classloco_1_1_gps_sensor_model_1a302d9d33f4d150c9aeafd4b36a53208d" kind="variable"><name>gps</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1abce4e4d29d0c75ab3c25466fa61e0b8e" kind="variable"><name>sensorAngleOffset</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1ae2a64fac19f7d550ad45cc4ba0d435a0" kind="variable"><name>point</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1a697a9f607ed74b9f7481643bfb83df20" kind="variable"><name>std</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1ac402cfbbdabb398ad9a50f457a9573f1" kind="variable"><name>notInstalled</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1a7a0ca7860928b2b14a5ece162502db85" kind="function"><name>GpsSensorModel</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1a89ee06817a28e79538f1eb9ffdf27075" kind="function"><name>update</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1ad6217698f7ad1bbff4ea6a1b0708aaf0" kind="function"><name>p</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1a54f75bb7f235a8024fb267f9a9e5f53e" kind="function"><name>getAngle</name></member>
+    <member refid="classloco_1_1_gps_sensor_model_1a96c685d824dd914d49f5b7f254f47f2e" kind="function"><name>~GpsSensorModel</name></member>
   </compound>
-  <compound refid="class_line_sensor_model" kind="class"><name>LineSensorModel</name>
-    <member refid="class_line_sensor_model_1ae1f3aaf1b5adfdbad9863c3d7962f196" kind="variable"><name>sensorOffset</name></member>
-    <member refid="class_line_sensor_model_1a6a8206ff2629b7b930f072e36eca8226" kind="variable"><name>lineSensor</name></member>
-    <member refid="class_line_sensor_model_1a9b14c60ed6db199ca108df6c61c72d5e" kind="variable"><name>measured</name></member>
-    <member refid="class_line_sensor_model_1ad9473b2ab77fe5551d320db1ab05c9a5" kind="function"><name>LineSensorModel</name></member>
-    <member refid="class_line_sensor_model_1a055567b171c5405d2af8f3ac729e058a" kind="function"><name>update</name></member>
-    <member refid="class_line_sensor_model_1ad378fe5e9415e7b9df1e2e1e62f93716" kind="function"><name>p</name></member>
-    <member refid="class_line_sensor_model_1af1647dfdc005bd89acd493d0d5dd7e05" kind="function"><name>~LineSensorModel</name></member>
+  <compound refid="classloco_1_1_line_sensor_model" kind="class"><name>loco::LineSensorModel</name>
+    <member refid="classloco_1_1_line_sensor_model_1af4e3fd5ec6a38768c38a007f55017e67" kind="variable"><name>sensorOffset</name></member>
+    <member refid="classloco_1_1_line_sensor_model_1a52ce42d4cde46b77c5cf1cf1560d6761" kind="variable"><name>lineSensor</name></member>
+    <member refid="classloco_1_1_line_sensor_model_1a70d065113474a2f48f5fe5d2217b0d79" kind="variable"><name>measured</name></member>
+    <member refid="classloco_1_1_line_sensor_model_1a9b3d757975e8163b642a51e7d6b0e88f" kind="function"><name>LineSensorModel</name></member>
+    <member refid="classloco_1_1_line_sensor_model_1a3c16612ebd6ba82f4fabd43269c77601" kind="function"><name>update</name></member>
+    <member refid="classloco_1_1_line_sensor_model_1aa33dcdb859a8c11703e1a8a6a9d71229" kind="function"><name>p</name></member>
+    <member refid="classloco_1_1_line_sensor_model_1ad83ac53de953400d3a0725488e8fda08" kind="function"><name>~LineSensorModel</name></member>
   </compound>
-  <compound refid="class_l_o_c_o___c_o_n_f_i_g" kind="class"><name>LOCO_CONFIG</name>
-    <member refid="class_l_o_c_o___c_o_n_f_i_g_1a0d3862d9caa518956f15a857c85699e1" kind="variable"><name>LINE_SENSOR_THRESHOLD</name></member>
-    <member refid="class_l_o_c_o___c_o_n_f_i_g_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" kind="variable"><name>LINE_SENSOR_DISTANCE_THRESHOLD</name></member>
-    <member refid="class_l_o_c_o___c_o_n_f_i_g_1a4f7b8f8ab4377f6ad1064c00f365479b" kind="variable"><name>DISTANCE_WEIGHT</name></member>
-    <member refid="class_l_o_c_o___c_o_n_f_i_g_1a06502e38c143a050aa0b82d1e34b6b6b" kind="variable"><name>GPS_WEIGHT</name></member>
-    <member refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" kind="variable"><name>LINE_WEIGHT</name></member>
+  <compound refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g" kind="class"><name>loco::LOCO_CONFIG</name>
+    <member refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1ad0bcb6171f921e05a34ce15fe46866b7" kind="variable"><name>LINE_SENSOR_THRESHOLD</name></member>
+    <member refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a6163cf5f627500753fad5b67f84024fc" kind="variable"><name>LINE_SENSOR_DISTANCE_THRESHOLD</name></member>
+    <member refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1ab6337411c025c29c3f29d53cd616969d" kind="variable"><name>DISTANCE_WEIGHT</name></member>
+    <member refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a6c2fe05aae9f916414a7ed49685095cd" kind="variable"><name>GPS_WEIGHT</name></member>
+    <member refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a1a5eede7ee84962157278c27f04173a6" kind="variable"><name>LINE_WEIGHT</name></member>
   </compound>
-  <compound refid="class_particle_filter" kind="class"><name>ParticleFilter</name>
-    <member refid="class_particle_filter_1abdc8058eaecb19a9929551c086f0388c" kind="variable"><name>particles</name></member>
-    <member refid="class_particle_filter_1aa5b258786931832bd99ae88afc59299b" kind="variable"><name>oldParticles</name></member>
-    <member refid="class_particle_filter_1a195fd10b5683a646dafeb773575656c5" kind="variable"><name>weights</name></member>
-    <member refid="class_particle_filter_1ab315fa14d983b83b2f29e284efe61995" kind="variable"><name>prediction</name></member>
-    <member refid="class_particle_filter_1aa531ada1062cb9651ab4a8a41dea0662" kind="variable"><name>sensors</name></member>
-    <member refid="class_particle_filter_1a2fe174e1543b32155e6b2015dbd6c7a5" kind="variable"><name>distanceSinceUpdate</name></member>
-    <member refid="class_particle_filter_1a67a363e989f0aef401ef9298f9261dad" kind="variable"><name>lastUpdateTime</name></member>
-    <member refid="class_particle_filter_1a15ab2f6ee77741f6cb0dee77c07961ec" kind="variable"><name>maxDistanceSinceUpdate</name></member>
-    <member refid="class_particle_filter_1a38b51cc9da60557335e7a92153b056e4" kind="variable"><name>maxUpdateInterval</name></member>
-    <member refid="class_particle_filter_1a164ad8c7a996f13afb791715ea9d9bf3" kind="variable"><name>angleFunction</name></member>
-    <member refid="class_particle_filter_1a1b329cfd1e3935d6e7c789aaa3d11e34" kind="variable"><name>de</name></member>
-    <member refid="class_particle_filter_1a4ca4e2c0041e4e13a35f21cbfe69bc6f" kind="variable"><name>fieldDist</name></member>
-    <member refid="class_particle_filter_1a309a7a6f29058179289661a976bff859" kind="function"><name>ParticleFilter</name></member>
-    <member refid="class_particle_filter_1a03a610e757354012f8df22a9ce4fde47" kind="function"><name>getPrediction</name></member>
-    <member refid="class_particle_filter_1a92d1fbe1fd4c9514a71458d59d00e63f" kind="function"><name>getParticles</name></member>
-    <member refid="class_particle_filter_1ae82348f650b227483edce2411af517e5" kind="function"><name>getParticle</name></member>
-    <member refid="class_particle_filter_1a57678e7483fadfccf9e3afef90017045" kind="function"><name>update</name></member>
-    <member refid="class_particle_filter_1af75afabb9243c418a1290937bfa987dd" kind="function"><name>initNormal</name></member>
-    <member refid="class_particle_filter_1a583a977f2bc8a7c1b75dd2e06c4eac65" kind="function"><name>initUniform</name></member>
-    <member refid="class_particle_filter_1a652ce905d00ad7d70261bac9983e8cfa" kind="function"><name>addSensor</name></member>
-    <member refid="class_particle_filter_1a2e7fbaa5e138d9cdbf80c2e59928273b" kind="function"><name>getAngle</name></member>
-    <member refid="class_particle_filter_1ab1ca6d5945853c2f57abac469107bbf4" kind="function"><name>outOfField</name></member>
+  <compound refid="classloco_1_1_particle_filter" kind="class"><name>loco::ParticleFilter</name>
+    <member refid="classloco_1_1_particle_filter_1afd323b635b683db22ee122bb573a0e40" kind="variable"><name>particles</name></member>
+    <member refid="classloco_1_1_particle_filter_1ad2437aba8195b2ca5041efed6e43316d" kind="variable"><name>oldParticles</name></member>
+    <member refid="classloco_1_1_particle_filter_1a6858313c06b362f1f0159a6441446ff6" kind="variable"><name>weights</name></member>
+    <member refid="classloco_1_1_particle_filter_1a8e692828b9240ee566598a5d9757d15a" kind="variable"><name>prediction</name></member>
+    <member refid="classloco_1_1_particle_filter_1a9ae78365d1690190881cf9de678880dd" kind="variable"><name>sensors</name></member>
+    <member refid="classloco_1_1_particle_filter_1a8693e6b5165925ae7bb1de97e3b2d8cb" kind="variable"><name>distanceSinceUpdate</name></member>
+    <member refid="classloco_1_1_particle_filter_1ae258d139545561a7a90eae013c46d9f1" kind="variable"><name>lastUpdateTime</name></member>
+    <member refid="classloco_1_1_particle_filter_1a1cb26e670f27b22608a9b67879cbfae9" kind="variable"><name>maxDistanceSinceUpdate</name></member>
+    <member refid="classloco_1_1_particle_filter_1a840f29fad5fa991873e87c9d99a4ac02" kind="variable"><name>maxUpdateInterval</name></member>
+    <member refid="classloco_1_1_particle_filter_1a6a23b59df4c61e4832266c9a99dc311c" kind="variable"><name>angleFunction</name></member>
+    <member refid="classloco_1_1_particle_filter_1adb66d0a862acab3344b60fa8941cd162" kind="variable"><name>de</name></member>
+    <member refid="classloco_1_1_particle_filter_1ae48d0295dd8351aa42624017a5798e80" kind="variable"><name>fieldDist</name></member>
+    <member refid="classloco_1_1_particle_filter_1a6bc7f8312fb52d7c0640fa84c28cc7b3" kind="function"><name>ParticleFilter</name></member>
+    <member refid="classloco_1_1_particle_filter_1a6abeedb1f1094984864a2215e80b581f" kind="function"><name>getPrediction</name></member>
+    <member refid="classloco_1_1_particle_filter_1a8126b7db77353753d0b6f7afe8ad08fd" kind="function"><name>getParticles</name></member>
+    <member refid="classloco_1_1_particle_filter_1ae2c538042eacae4449f05fd57f3a68a1" kind="function"><name>getParticle</name></member>
+    <member refid="classloco_1_1_particle_filter_1a54c61796d0d39925caca075c9002428c" kind="function"><name>update</name></member>
+    <member refid="classloco_1_1_particle_filter_1ab14ae5b6be1bc122b801c2587ca7eb5d" kind="function"><name>initNormal</name></member>
+    <member refid="classloco_1_1_particle_filter_1a918e8928d264f4aac8b43cea695f32ac" kind="function"><name>initUniform</name></member>
+    <member refid="classloco_1_1_particle_filter_1aaca54443076b1a4d40eb9e4ee570e5fd" kind="function"><name>addSensor</name></member>
+    <member refid="classloco_1_1_particle_filter_1a472a0de69623cc5707eba7bc9875a889" kind="function"><name>getAngle</name></member>
+    <member refid="classloco_1_1_particle_filter_1a69bade27d5f1688481202b1197ca4a87" kind="function"><name>outOfField</name></member>
   </compound>
-  <compound refid="class_sensor_model" kind="class"><name>SensorModel</name>
-    <member refid="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1" kind="function"><name>p</name></member>
-    <member refid="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e" kind="function"><name>update</name></member>
-    <member refid="class_sensor_model_1af126ce3352b705de464b895ee0155472" kind="function"><name>~SensorModel</name></member>
+  <compound refid="classloco_1_1_sensor_model" kind="class"><name>loco::SensorModel</name>
+    <member refid="classloco_1_1_sensor_model_1a64595b55a84f8a014030bfd1c5b363ef" kind="function"><name>p</name></member>
+    <member refid="classloco_1_1_sensor_model_1a51fd2a3818c0056cf30485fd919ee617" kind="function"><name>update</name></member>
+    <member refid="classloco_1_1_sensor_model_1a638c2d326ff592c27f5c9556150fea98" kind="function"><name>~SensorModel</name></member>
+  </compound>
+  <compound refid="namespaceloco" kind="namespace"><name>loco</name>
+    <member refid="distance_8h_1a9df35044482a7c82051d02d07539acb3" kind="variable"><name>WALLS</name></member>
+    <member refid="distance_8h_1a418fa6fe5e0297aa53d986622c6c467b" kind="variable"><name>WALL_0_X</name></member>
+    <member refid="distance_8h_1a1f037385c53f26bbc072df849aa4642b" kind="variable"><name>WALL_1_Y</name></member>
+    <member refid="distance_8h_1acce8b815205a4f25d83391e9f9aed3ab" kind="variable"><name>WALL_2_X</name></member>
+    <member refid="distance_8h_1afc11836fe5321f0b54b937b1b2999e5f" kind="variable"><name>WALL_3_Y</name></member>
+    <member refid="line_8h_1accb4de722772c88a0d996006a5ca4807" kind="variable"><name>LINES</name></member>
+    <member refid="line_8h_1ad27ccc103e5eafff3e50b17baf2edb39" kind="variable"><name>LINES_Y</name></member>
+    <member refid="utils_8h_1a4f5b52322e5d4ec8e929b15d7ea96d7a" kind="function"><name>cheap_norm_pdf</name></member>
   </compound>
   <compound refid="config_8h" kind="file"><name>config.h</name>
   </compound>
   <compound refid="distance_8h" kind="file"><name>distance.h</name>
-    <member refid="distance_8h_1a84aa7dd6e20d5e727bf77c0861138cef" kind="variable"><name>WALLS</name></member>
-    <member refid="distance_8h_1a89f1025eb2ea30c237d0d44cf00bea02" kind="variable"><name>WALL_0_X</name></member>
-    <member refid="distance_8h_1a2d559ab0f6fcbc56f8b15bb401ad14cd" kind="variable"><name>WALL_1_Y</name></member>
-    <member refid="distance_8h_1a750c08447fe4a8d6ea0520a270036216" kind="variable"><name>WALL_2_X</name></member>
-    <member refid="distance_8h_1a54fadb50235e325add77f1941175c454" kind="variable"><name>WALL_3_Y</name></member>
   </compound>
   <compound refid="gps_8h" kind="file"><name>gps.h</name>
   </compound>
   <compound refid="line_8h" kind="file"><name>line.h</name>
-    <member refid="line_8h_1a9ac791b5ce21e6776c0728337f2babcd" kind="variable"><name>LINES</name></member>
-    <member refid="line_8h_1a2d9b86d84377ff42e01741105a547f3f" kind="variable"><name>LINES_Y</name></member>
   </compound>
   <compound refid="particle_filter_8h" kind="file"><name>particleFilter.h</name>
   </compound>
   <compound refid="sensor_model_8h" kind="file"><name>sensorModel.h</name>
   </compound>
   <compound refid="utils_8h" kind="file"><name>utils.h</name>
-    <member refid="utils_8h_1a5b48c7922811d3c186264555c5eb925d" kind="function"><name>cheap_norm_pdf</name></member>
   </compound>
   <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/Users/alex/Documents/VEX/loco-lib/include</name>
   </compound>

@@ -1,5 +1,5 @@
 # Config
 
-```{doxygenclass} LOCO_CONFIG
+```{doxygenclass} loco::LOCO_CONFIG
 :members:
 ```

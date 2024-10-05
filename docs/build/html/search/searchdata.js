@@ -2,7 +2,7 @@ var indexSectionsWithContent =
 {
   0: "dglpsu",
   1: "dglps",
-  2: "dpu",
+  2: "dgpu",
   3: "dgl"
 };
 

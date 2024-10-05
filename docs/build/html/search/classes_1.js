@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gpssensormodel_0',['GpsSensorModel',['../class_gps_sensor_model.html',1,'']]]
+  ['gpssensormodel_0',['GpsSensorModel',['../classloco_1_1_gps_sensor_model.html',1,'loco']]]
 ];

@@ -36,7 +36,8 @@
         </childnode>
       </node>
     </invincdepgraph>
-    <innerclass refid="class_sensor_model" prot="public">SensorModel</innerclass>
+    <innerclass refid="classloco_1_1_sensor_model" prot="public">loco::SensorModel</innerclass>
+    <innernamespace refid="namespaceloco">loco</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -44,14 +45,16 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6" refid="class_sensor_model" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_sensor_model" kindref="compound">SensorModel</ref><sp/>{</highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="14" refid="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;double&gt;<sp/><ref refid="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1" kindref="member">p</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Vector3f<sp/>&amp;x)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19" refid="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e" kindref="member">update</ref>()<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_sensor_model" kindref="compound">~SensorModel</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">loco<sp/>{</highlight></codeline>
+<codeline lineno="7" refid="classloco_1_1_sensor_model" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classloco_1_1_sensor_model" kindref="compound">SensorModel</ref><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15" refid="classloco_1_1_sensor_model_1a64595b55a84f8a014030bfd1c5b363ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;double&gt;<sp/><ref refid="classloco_1_1_sensor_model_1a64595b55a84f8a014030bfd1c5b363ef" kindref="member">p</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Vector3f<sp/>&amp;x)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classloco_1_1_sensor_model_1a51fd2a3818c0056cf30485fd919ee617" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classloco_1_1_sensor_model_1a51fd2a3818c0056cf30485fd919ee617" kindref="member">update</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classloco_1_1_sensor_model" kindref="compound">~SensorModel</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/sensorModel.h"/>
   </compounddef>

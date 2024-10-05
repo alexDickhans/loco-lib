@@ -7,74 +7,76 @@
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}sensorModel.h"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
 \DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \textcolor{keyword}{const}\ std::vector<std::pair<Eigen::Vector2f,\ Eigen::Vector2f>\ >\ WALLS\ =\ \{}
-\DoxyCodeLine{00007\ \ \ \ \ \{\{1.78308,\ 1.78308\},\ \{1.78308,\ -\/1.78308\}\},}
-\DoxyCodeLine{00008\ \ \ \ \ \{\{1.78308,\ -\/1.78308\},\ \{-\/1.78308,\ -\/1.78308\}\},}
-\DoxyCodeLine{00009\ \ \ \ \ \{\{-\/1.78308,\ -\/1.78308\},\ \{-\/1.78308,\ 1.78308\}\},}
-\DoxyCodeLine{00010\ \ \ \ \ \{\{-\/1.78308,\ 1.78308\},\ \{1.78308,\ 1.78308\}\},}
-\DoxyCodeLine{00011\ \};}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_0\_X\ =\ 1.78308;}
-\DoxyCodeLine{00014\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_1\_Y\ =\ 1.78308;}
-\DoxyCodeLine{00015\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_2\_X\ =\ -\/1.78308;}
-\DoxyCodeLine{00016\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_3\_Y\ =\ -\/1.78308;}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_distance_sensor_model}{DistanceSensorModel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_sensor_model}{SensorModel}}\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00026\ \ \ \ \ Eigen::Vector3f\ sensorOffset;}
-\DoxyCodeLine{00027\ \ \ \ \ pros::Distance\ distance;}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ QLength\ measured\ =\ 0.0;}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ exit\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00031\ \ \ \ \ QLength\ std\ =\ 0.0;}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_distance_sensor_model_a07c92d06bd73c81a4f8919755f590000}{DistanceSensorModel}}(Eigen::Vector3f\ sensor\_offset,\ pros::Distance\ distance)}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ :\ sensorOffset(std::move(sensor\_offset)),}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ distance(std::move(distance))\ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_distance_sensor_model_a1b691034552e9472807073bcface92f5}{update}}()\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ measuredMM\ =\ distance.get();}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ exit\ =\ measuredMM\ ==\ 9999\ ||\ distance.get\_object\_size()\ <\ 70;}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ measured\ =\ measuredMM\ *\ millimetre;}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std\ =\ 0.20\ *\ measured\ /\ (distance.get\_confidence()\ /\ 64.0);}
-\DoxyCodeLine{00055\ \ \ \ \ \}}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00064\ \ \ \ \ [[nodiscard]]\ std::optional<double>\ \mbox{\hyperlink{class_distance_sensor_model_ad73b55b4fb45651fead2802942adf135}{p}}(\textcolor{keyword}{const}\ Eigen::Vector3f\ \&X)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (exit)\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ angle\ =\ X.z()\ +\ sensorOffset.z();}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ Eigen::Vector2f\ x\ =\ X.head<2>()\ +\ Eigen::Rotation2Df(X.z())\ *\ sensorOffset.head<2>();}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ predicted\ =\ 50.0f;}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(0.0f,\ angle));\ theta\ <\ M\_PI\_2)\ \{}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((WALL\_0\_X\ -\/\ x.x())\ /\ cos(theta),\ predicted);}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(M\_PI\_2),\ angle));\ theta\ <\ M\_PI\_2)\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((WALL\_1\_Y\ -\/\ x.y())\ /\ cos(theta),\ predicted);}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(M\_PI),\ angle));\ theta\ <\ M\_PI\_2)\ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((x.x()\ -\/\ WALL\_2\_X)\ /\ cos(theta),\ predicted);}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(M\_3PI\_4),\ angle));\ theta\ <\ M\_PI\_2)\ \{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((x.y()\ -\/\ WALL\_3\_Y)\ /\ cos(theta),\ predicted);}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cheap\_norm\_pdf((predicted\ -\/\ measured.getValue())\ /\ std.getValue())\ *\ \mbox{\hyperlink{class_l_o_c_o___c_o_n_f_i_g_a4f7b8f8ab4377f6ad1064c00f365479b}{LOCO\_CONFIG::DISTANCE\_WEIGHT}};}
-\DoxyCodeLine{00092\ \ \ \ \ \}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{class_distance_sensor_model}{\string~DistanceSensorModel}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }loco\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::pair<Eigen::Vector2f,\ Eigen::Vector2f>\ >\ WALLS\ =\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \{\{1.78308,\ 1.78308\},\ \{1.78308,\ -\/1.78308\}\},}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \{\{1.78308,\ -\/1.78308\},\ \{-\/1.78308,\ -\/1.78308\}\},}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \{\{-\/1.78308,\ -\/1.78308\},\ \{-\/1.78308,\ 1.78308\}\},}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \{\{-\/1.78308,\ 1.78308\},\ \{1.78308,\ 1.78308\}\},}
+\DoxyCodeLine{00012\ \ \ \ \ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_0\_X\ =\ 1.78308;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_1\_Y\ =\ 1.78308;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_2\_X\ =\ -\/1.78308;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ WALL\_3\_Y\ =\ -\/1.78308;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classloco_1_1_distance_sensor_model}{DistanceSensorModel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classloco_1_1_sensor_model}{SensorModel}}\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ sensorOffset;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ pros::Distance\ distance;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ QLength\ measured\ =\ 0.0;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ exit\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ QLength\ std\ =\ 0.0;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classloco_1_1_distance_sensor_model_a9605c325bfa4ab8579451c562e797802}{DistanceSensorModel}}(Eigen::Vector3f\ sensor\_offset,\ pros::Distance\ distance)}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ :\ sensorOffset(std::move(sensor\_offset)),}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ distance(std::move(distance))\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classloco_1_1_distance_sensor_model_a65c475bd5160f8db26a76643812431b5}{update}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ measuredMM\ =\ distance.get();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ exit\ =\ measuredMM\ ==\ 9999\ ||\ distance.get\_object\_size()\ <\ 70;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ measured\ =\ measuredMM\ *\ millimetre;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ std\ =\ 0.20\ *\ measured\ /\ (distance.get\_confidence()\ /\ 64.0);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ [[nodiscard]]\ std::optional<double>\ \mbox{\hyperlink{classloco_1_1_distance_sensor_model_af4d8b432f3ad35edb31c65fc6585efc0}{p}}(\textcolor{keyword}{const}\ Eigen::Vector3f\ \&X)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (exit)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ angle\ =\ X.z()\ +\ sensorOffset.z();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Vector2f\ x\ =\ X.head<2>()\ +\ Eigen::Rotation2Df(X.z())\ *\ sensorOffset.head<2>();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ predicted\ =\ 50.0f;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(0.0f,\ angle));\ theta\ <\ M\_PI\_2)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((WALL\_0\_X\ -\/\ x.x())\ /\ cos(theta),\ predicted);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(M\_PI\_2),\ angle));\ theta\ <\ M\_PI\_2)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((WALL\_1\_Y\ -\/\ x.y())\ /\ cos(theta),\ predicted);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(M\_PI),\ angle));\ theta\ <\ M\_PI\_2)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((x.x()\ -\/\ WALL\_2\_X)\ /\ cos(theta),\ predicted);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ theta\ =\ abs(std::remainder(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(M\_3PI\_4),\ angle));\ theta\ <\ M\_PI\_2)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ predicted\ =\ std::min((x.y()\ -\/\ WALL\_3\_Y)\ /\ cos(theta),\ predicted);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cheap\_norm\_pdf((predicted\ -\/\ measured.getValue())\ /\ std.getValue())\ *\ \mbox{\hyperlink{classloco_1_1_l_o_c_o___c_o_n_f_i_g_ab6337411c025c29c3f29d53cd616969d}{LOCO\_CONFIG::DISTANCE\_WEIGHT}};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classloco_1_1_distance_sensor_model}{\string~DistanceSensorModel}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00096\ \ \ \ \ \};}
+\DoxyCodeLine{00097\ \}}
 
 \end{DoxyCode}

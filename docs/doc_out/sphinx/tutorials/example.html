@@ -58,6 +58,19 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Annotated Example</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example-prerequisites">Example Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hardware-definitions">Hardware definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#particle-filter-initialization">Particle filter initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#misc-setup">Misc. Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize">Initialize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#making-a-localization-task">Making a localization task</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notes-on-the-prediction-function"><em>Notes on the prediction function</em></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-predictions">Getting the predictions</a></li>
 </ul>
 </li>
 </ul>
@@ -95,14 +108,206 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="annotated-example">
 <h1>Annotated Example<a class="headerlink" href="#annotated-example" title="Permalink to this heading"></a></h1>
-<p>In this example we will make the code necessary for a Particle Filter</p>
+<p>In this example we will make the code necessary for a Particle Filter. This is after you have installed Loco lib into
+your local project. If it’s not in your local project, use the <a class="reference internal" href="installation.html"><span class="std std-doc">installation tutorial</span></a> to install it.</p>
 <section id="example-prerequisites">
 <h2>Example Prerequisites<a class="headerlink" href="#example-prerequisites" title="Permalink to this heading"></a></h2>
-<p>For this example you need to understand Object Oriented Programming, but more specifically, Classes, Member functions,
-and Inheritance. If you need to learn
-the <a class="reference external" href="https://www.learncpp.com/cpp-tutorial/introduction-to-object-oriented-programming/">learncpp.com</a> articles.
-Additionally you need to have an understanding of how anonymous functions, or lambda expressions work for the
-implementation.</p>
+<p>For this example you need to understand Basic C++ Programming, but more specifically, anonymous functions, object usage,
+and lambda expressions. If you need to learn
+the <a class="reference external" href="https://www.learncpp.com/cpp-tutorial/introduction-to-object-oriented-programming/">learncpp.com</a> articles are
+great places to learn!</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h3>
+<p>While you can set the configuration values when you use them, it is often helpful to have them all in the same spot.
+For example, putting them at the top of the main.cpp, or another accessible spot can help with ease of use.</p>
+<p>These tuning variables pertain just to how the drivetrain calculates how far it has travelled.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">DRIVE_RATIO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">48.0</span><span class="o">/</span><span class="mf">36.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// EX: 36 tooth driving gear to 48 tooth driven gear.</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">DRIVETRAIN_TUNING_SCALAR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">76.0</span><span class="o">/</span><span class="mf">87.9</span><span class="p">;</span><span class="w"> </span><span class="c1">// Tuning variable to make sure distance matches</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">QLength</span><span class="w"> </span><span class="n">WHEEL_RADIUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.25</span><span class="n">_in</span><span class="o">/</span><span class="mf">2.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Wheel radius</span>
+</pre></div>
+</div>
+<p>These values are the noise values, we will discuss the noising process later in this tutorial, but it is crucial to a
+working particle filter and must be &gt; 0. We recommend you use similar values to these:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">DRIVE_NOISE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.35</span><span class="p">;</span><span class="w"> </span><span class="c1">// The desired amount in % of noise on the drive</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">Angle</span><span class="w"> </span><span class="n">ANGLE_NOISE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="n">_deg</span><span class="p">;</span><span class="w"> </span><span class="c1">// The noise on the angle that&#39;s desired</span>
+</pre></div>
+</div>
+</section>
+<section id="hardware-definitions">
+<h3>Hardware definitions<a class="headerlink" href="#hardware-definitions" title="Permalink to this heading"></a></h3>
+<p>Similar to configuration values, it’s recommended that you put the port definitions at a easy to remember spot. In this
+example we put them directly below the configuration values. A special note here is that there is a distance sensor
+offset. This allows the distance sensor to be put anywhere on the robot and still give consistent positions. To ensure
+we have reliable sensor positions we use a CAD drawing such as the following from our notebook to define the sensor
+positions:</p>
+<p><img alt="A drawing of the sensor offset on our robot" src="../_images/sensorDrawing.png" /></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pros</span><span class="o">::</span><span class="n">MotorGroup</span><span class="w"> </span><span class="nf">left11W</span><span class="p">({</span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-3</span><span class="p">}),</span><span class="w"> </span><span class="n">right11W</span><span class="p">({</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">});</span><span class="w"> </span><span class="c1">// left and right motor setup</span>
+
+<span class="c1">// Create IMU and distance sensors</span>
+<span class="n">pros</span><span class="o">::</span><span class="n">Imu</span><span class="w"> </span><span class="nf">imu</span><span class="p">(</span><span class="mi">19</span><span class="p">);</span>
+<span class="n">pros</span><span class="o">::</span><span class="n">Distance</span><span class="w"> </span><span class="nf">distance</span><span class="p">(</span><span class="mi">18</span><span class="p">);</span>
+
+<span class="c1">// Distance sensor pointed to the left, 5.8 inches to the left, and 4.2 inches back from the center of rotation</span>
+<span class="c1">// A different distance offset needs to be used for each distance sensor</span>
+<span class="k">const</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3f</span><span class="w"> </span><span class="nf">DISTANCE_OFFSET</span><span class="p">((</span><span class="mf">-4.2</span><span class="n">_in</span><span class="p">).</span><span class="n">getValue</span><span class="p">(),</span><span class="w"> </span><span class="p">(</span><span class="mf">5.8</span><span class="n">_in</span><span class="p">).</span><span class="n">getValue</span><span class="p">(),</span><span class="w"> </span><span class="p">(</span><span class="mi">90</span><span class="n">_deg</span><span class="p">).</span><span class="n">getValue</span><span class="p">());</span>
+</pre></div>
+</div>
+</section>
+<section id="particle-filter-initialization">
+<h3>Particle filter initialization<a class="headerlink" href="#particle-filter-initialization" title="Permalink to this heading"></a></h3>
+<p>Currently the particle filter implementation is in a form that is very flexible to the addition or utilization of
+different sensors. This means that certain parts of it use lambda expressions to make the code simpler. The following
+code creates a particle filter with 100 particles that uses the IMU laid flat as it’s orientation source.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a particle filter with 100 particles, and an angle function, given above</span>
+<span class="n">loco</span><span class="o">::</span><span class="n">ParticleFilter</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">&gt;</span><span class="w"> </span><span class="n">particleFilter</span><span class="p">([]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Invert the angle into the loco coordinate system</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Angle</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">imu</span><span class="p">.</span><span class="n">get_rotation</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">degree</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Check to make sure the angle isn&#39;t nan, if it is it can cause issues in the position change calculations</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isfinite</span><span class="p">(</span><span class="n">angle</span><span class="p">.</span><span class="n">getValue</span><span class="p">())</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="misc-setup">
+<h3>Misc. Setup<a class="headerlink" href="#misc-setup" title="Permalink to this heading"></a></h3>
+<p>Particle filters need a lot of noise to work properly, which we will describe in more detail later in this example, so
+we use a ranlux24_base random number generator as our default engine (de).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Cheap (computationally) random generator to add randomness to the drivetrain</span>
+<span class="n">std</span><span class="o">::</span><span class="n">ranlux24_base</span><span class="w"> </span><span class="n">de</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Another thing we have to setup is the variables to store the last drivetrain state so it’s possible to calculate the
+change each frame. We will use this later in the tutorial.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Used to calculate the change in position on the drivetrain</span>
+<span class="n">QLength</span><span class="w"> </span><span class="n">lastLeft</span><span class="p">,</span><span class="w"> </span><span class="n">lastRight</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Another thing we set up is a function to calculate the distance travelled of the drivetrain. To do this we use a function that takes in motor groups and calculates the average position, which we can use later to calculate the change in position in the local, and then global frames.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @brief get the average position of the motor group</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param motor Motor group to get the distance travelled on</span>
+<span class="cm"> * @return average position of the motor group</span>
+<span class="cm"> */</span>
+<span class="n">QLength</span><span class="w"> </span><span class="nf">getDistance</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">pros</span><span class="o">::</span><span class="n">MotorGroup</span><span class="o">&amp;</span><span class="w"> </span><span class="n">motor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">QLength</span><span class="w"> </span><span class="n">totalPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">motor</span><span class="p">.</span><span class="n">get_position_all</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">totalPosition</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">DRIVE_RATIO</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M_PI</span>
+<span class="w">           </span><span class="o">*</span><span class="w"> </span><span class="n">DRIVETRAIN_TUNING_SCALAR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">WHEEL_RADIUS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">totalPosition</span><span class="o">/</span><span class="n">motor</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="initialize">
+<h2>Initialize<a class="headerlink" href="#initialize" title="Permalink to this heading"></a></h2>
+<p>First, calibrate the IMU:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Calibrate the IMU and wait until it is done</span>
+<span class="n">imu</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Add the distance sensor to the particle filter:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add the distance sensor to the particle filter</span>
+<span class="n">particleFilter</span><span class="p">.</span><span class="n">addSensor</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">loco</span><span class="o">::</span><span class="n">DistanceSensorModel</span><span class="p">(</span><span class="n">DISTANCE_OFFSET</span><span class="p">,</span><span class="w"> </span><span class="n">distance</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Initialize the particles in a uniform distribution around the field:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize the starting distribution over the entire field in a uniform manner.</span>
+<span class="n">particleFilter</span><span class="p">.</span><span class="n">initUniform</span><span class="p">(</span><span class="mi">-70</span><span class="n">_in</span><span class="p">,</span><span class="w"> </span><span class="mi">-70</span><span class="n">_in</span><span class="p">,</span><span class="w"> </span><span class="mi">70</span><span class="n">_in</span><span class="p">,</span><span class="w"> </span><span class="mi">70</span><span class="n">_in</span><span class="p">);</span>
+</pre></div>
+</div>
+<section id="making-a-localization-task">
+<h3>Making a localization task<a class="headerlink" href="#making-a-localization-task" title="Permalink to this heading"></a></h3>
+<p>Localization can be run many points in code, but we recommend that you give it it’s own task, or add it to subsystem code in <a class="reference external" href="https://github.com/alexDickhans/command-based-pros">command based pros</a>. For this example we put create an independently scheduled task for this:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a task to run localization</span>
+<span class="n">pros</span><span class="o">::</span><span class="n">Task</span><span class="w"> </span><span class="n">locoTask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pros</span><span class="o">::</span><span class="n">Task</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+</pre></div>
+</div>
+<p>First, we have the loop code. This makes sure the code is run on a consistent schedule:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Run localization forever</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Store the start time to ensure that the time between updates remains consistent</span>
+<span class="w">    </span><span class="n">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pros</span><span class="o">::</span><span class="n">millis</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>We then get the distance travelled by the drivetrain, and subtract it from the distance last frame to estimate the change:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Store the current distance of the drivetrain</span>
+<span class="k">const</span><span class="w"> </span><span class="n">QLength</span><span class="w"> </span><span class="n">leftLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getDistance</span><span class="p">(</span><span class="n">left11W</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="n">QLength</span><span class="w"> </span><span class="n">rightLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getDistance</span><span class="p">(</span><span class="n">right11W</span><span class="p">);</span>
+
+<span class="c1">// Calculate the change from the previous position</span>
+<span class="k">const</span><span class="w"> </span><span class="n">QLength</span><span class="w"> </span><span class="n">leftChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftLength</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastLeft</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">QLength</span><span class="w"> </span><span class="n">rightChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rightLength</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastRight</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Then, store the current drivetrain position into the last state to be used in the future:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Store the current value as the last value for next frame</span>
+<span class="n">lastLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftLength</span><span class="p">;</span>
+<span class="n">lastRight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rightLength</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The average distance change in the drivetrain is calculated, on tank drives, this gets the movement in the middle of the robot.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Calculate the average movement, this is a cheaper way to get the movement of the drive at the center for</span>
+<span class="c1">// skid-steer based mechanics</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">avg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">leftChange</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rightChange</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The next step is to define the random distribution objects we will sample from in the prediction step of the filter.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Define the distributions to add noise to the sensor readings</span>
+<span class="n">std</span><span class="o">::</span><span class="n">uniform_real_distribution</span><span class="w"> </span><span class="nf">avgDistribution</span><span class="p">(</span><span class="n">avg</span><span class="p">.</span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DRIVE_NOISE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">avg</span><span class="p">.</span><span class="n">getValue</span><span class="p">(),</span>
+<span class="w">                                               </span><span class="n">avg</span><span class="p">.</span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">DRIVE_NOISE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">avg</span><span class="p">.</span><span class="n">getValue</span><span class="p">());</span>
+<span class="n">std</span><span class="o">::</span><span class="n">uniform_real_distribution</span><span class="w"> </span><span class="nf">angleDistribution</span><span class="p">(</span>
+<span class="w">    </span><span class="n">particleFilter</span><span class="p">.</span><span class="n">getAngle</span><span class="p">().</span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ANGLE_NOISE</span><span class="p">.</span><span class="n">getValue</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">particleFilter</span><span class="p">.</span><span class="n">getAngle</span><span class="p">().</span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ANGLE_NOISE</span><span class="p">.</span><span class="n">getValue</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>We then update the filter with this function, which samples the distributions we just defined creates a local translation and rotates it into the global frame.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Update the filter with the new data and noise from the sensors</span>
+<span class="n">particleFilter</span><span class="p">.</span><span class="n">update</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Calculate noisy sensor readings</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">noisy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avgDistribution</span><span class="p">(</span><span class="n">de</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angleDistribution</span><span class="p">(</span><span class="n">de</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Calculate the translation with the sensor readings</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Rotation2Df</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2f</span><span class="p">({</span><span class="n">noisy</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Last, we finish off the loop by waiting 10ms from when the loop started:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// Wait 10ms for the next frame, incorporating the wait</span>
+<span class="w">        </span><span class="n">pros</span><span class="o">::</span><span class="n">c</span><span class="o">::</span><span class="n">task_delay_until</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start_time</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="notes-on-the-prediction-function">
+<h3><em>Notes on the prediction function</em><a class="headerlink" href="#notes-on-the-prediction-function" title="Permalink to this heading"></a></h3>
+<p>! TODO</p>
+</section>
+</section>
+<section id="getting-the-predictions">
+<h2>Getting the predictions<a class="headerlink" href="#getting-the-predictions" title="Permalink to this heading"></a></h2>
+<p>In the opcontrol() function, we use the particleFilter.getPrediction() which returns the average particle from the filter. This returns a Eigen::Vector3f, which you can easily get the [x, y, ø] from in SI units.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get the current pose prediction from the particle filter.</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">particleFilter</span><span class="p">.</span><span class="n">getPrediction</span><span class="p">();</span>
+
+<span class="c1">// Print out the current pose of the robot to the screen in inches and degrees. The outputs from the particle</span>
+<span class="c1">// filter are always in base SI units, so meters for position, seconds for time, and radians for angle.</span>
+<span class="n">pros</span><span class="o">::</span><span class="n">lcd</span><span class="o">::</span><span class="n">set_text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="n">x</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">metre</span><span class="p">.</span><span class="n">Convert</span><span class="p">(</span><span class="n">inch</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="w"> </span><span class="o">+</span>
+</pre></div>
+</div>
+<p>And that’s all you need for a tank drive implementation of the particle filter!</p>
 </section>
 </section>
 

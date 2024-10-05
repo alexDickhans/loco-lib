@@ -1,5 +1,5 @@
 # SensorModel
 
-```{doxygenclass} SensorModel
+```{doxygenclass} loco::SensorModel
 :members:
 ```

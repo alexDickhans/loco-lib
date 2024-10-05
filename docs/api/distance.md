@@ -1,5 +1,5 @@
 # DistanceSensorModel
 
-```{doxygenclass} DistanceSensorModel
+```{doxygenclass} loco::DistanceSensorModel
 :members:
 ```

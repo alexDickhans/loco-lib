@@ -29,45 +29,8 @@
         <link refid="utils_8h_source"/>
       </node>
     </incdepgraph>
-    <innerclass refid="class_line_sensor_model" prot="public">LineSensorModel</innerclass>
-    <sectiondef kind="var">
-      <memberdef kind="variable" id="line_8h_1a9ac791b5ce21e6776c0728337f2babcd" prot="public" static="no" mutable="no">
-        <type>const std::vector&lt; std::pair&lt; Eigen::Vector2f, Eigen::Vector2f &gt; &gt;</type>
-        <definition>const std::vector&lt;std::pair&lt;Eigen::Vector2f, Eigen::Vector2f&gt; &gt; LINES</definition>
-        <argsstring></argsstring>
-        <name>LINES</name>
-        <initializer>= {
-	{{-1.78308, 0}, {1.78308, 0}},
-	{{-1.78308, 1.47828}, {1.78308, 1.47828}},
-	{{-1.78308, -1.47828}, {1.78308, -1.47828}},
-}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/line.h" line="7" column="19" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/line.h" bodystart="7" bodyend="11"/>
-      </memberdef>
-      <memberdef kind="variable" id="line_8h_1a2d9b86d84377ff42e01741105a547f3f" prot="public" static="no" mutable="no">
-        <type>const std::vector&lt; float &gt;</type>
-        <definition>const std::vector&lt;float&gt; LINES_Y</definition>
-        <argsstring></argsstring>
-        <name>LINES_Y</name>
-        <initializer>= {
-	0.0,
-	1.47828,
-	-1.47828,
-}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/line.h" line="13" column="19" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/line.h" bodystart="13" bodyend="17"/>
-      </memberdef>
-    </sectiondef>
+    <innerclass refid="classloco_1_1_line_sensor_model" prot="public">loco::LineSensorModel</innerclass>
+    <innernamespace refid="namespaceloco">loco</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -79,55 +42,57 @@
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sensorModel.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::pair&lt;Eigen::Vector2f,<sp/>Eigen::Vector2f&gt;&gt;<sp/>LINES<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>{{-1.78308,<sp/>0},<sp/>{1.78308,<sp/>0}},</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>{{-1.78308,<sp/>1.47828},<sp/>{1.78308,<sp/>1.47828}},</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>{{-1.78308,<sp/>-1.47828},<sp/>{1.78308,<sp/>-1.47828}},</highlight></codeline>
-<codeline lineno="11"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;float&gt;<sp/>LINES_Y<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>0.0,</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>1.47828,</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>-1.47828,</highlight></codeline>
-<codeline lineno="17"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19" refid="class_line_sensor_model" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_line_sensor_model" kindref="compound">LineSensorModel</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_sensor_model" kindref="compound">SensorModel</ref><sp/>{</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector2f<sp/>sensorOffset;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>pros::adi::LineSensor<sp/>lineSensor;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>measured{</highlight><highlight class="keyword">false</highlight><highlight class="normal">};</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_line_sensor_model" kindref="compound">LineSensorModel</ref>(Eigen::Vector2f<sp/>sensor_offset,<sp/>pros::adi::LineSensor<sp/>line_sensor)</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>sensorOffset(std::move(sensor_offset)),</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lineSensor(std::move(line_sensor))<sp/>{</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30" refid="class_line_sensor_model_1a055567b171c5405d2af8f3ac729e058a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_line_sensor_model_1a055567b171c5405d2af8f3ac729e058a" kindref="member">update</ref>()</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>measured<sp/>=<sp/>this-&gt;lineSensor.get_value()<sp/>&lt;<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1a0d3862d9caa518956f15a857c85699e1" kindref="member">LOCO_CONFIG::LINE_SENSOR_THRESHOLD</ref>;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34" refid="class_line_sensor_model_1ad378fe5e9415e7b9df1e2e1e62f93716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::optional&lt;double&gt;<sp/><ref refid="class_line_sensor_model_1ad378fe5e9415e7b9df1e2e1e62f93716" kindref="member">p</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Vector3f&amp;<sp/>x)</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::Vector2f<sp/>sensor_position<sp/>=<sp/>Eigen::Rotation2Df(x.z())<sp/>*<sp/>sensorOffset<sp/>+<sp/>x.head&lt;2&gt;();</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>predictedDistance<sp/>=<sp/>50.0_m;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lines_y<sp/>:<sp/>LINES_Y)<sp/>{</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>predictedDistance<sp/>=<sp/>std::min(abs(sensor_position.y()<sp/>-<sp/>lines_y)<sp/>*<sp/>metre,<sp/>predictedDistance);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>predicted<sp/>=<sp/>predictedDistance<sp/>&lt;<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" kindref="member">LOCO_CONFIG::LINE_SENSOR_DISTANCE_THRESHOLD</ref>;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(predicted<sp/>&amp;&amp;<sp/>measured)<sp/>{</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1.0<sp/>*<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" kindref="member">LOCO_CONFIG::LINE_WEIGHT</ref>;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!predicted<sp/>&amp;&amp;<sp/>!measured)<sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1.0<sp/>*<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" kindref="member">LOCO_CONFIG::LINE_WEIGHT</ref>;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.4<sp/>*<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" kindref="member">LOCO_CONFIG::LINE_WEIGHT</ref>;</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_line_sensor_model" kindref="compound">~LineSensorModel</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">loco<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::pair&lt;Eigen::Vector2f,<sp/>Eigen::Vector2f&gt;&gt;<sp/>LINES<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{{-1.78308,<sp/>0},<sp/>{1.78308,<sp/>0}},</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{{-1.78308,<sp/>1.47828},<sp/>{1.78308,<sp/>1.47828}},</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{{-1.78308,<sp/>-1.47828},<sp/>{1.78308,<sp/>-1.47828}},</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;float&gt;<sp/>LINES_Y<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.47828,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-1.47828,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classloco_1_1_line_sensor_model" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classloco_1_1_line_sensor_model" kindref="compound">LineSensorModel</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classloco_1_1_sensor_model" kindref="compound">SensorModel</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::Vector2f<sp/>sensorOffset;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pros::adi::LineSensor<sp/>lineSensor;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>measured{</highlight><highlight class="keyword">false</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classloco_1_1_line_sensor_model" kindref="compound">LineSensorModel</ref>(Eigen::Vector2f<sp/>sensor_offset,<sp/>pros::adi::LineSensor<sp/>line_sensor)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>sensorOffset(std::move(sensor_offset)),</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lineSensor(std::move(line_sensor))<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="classloco_1_1_line_sensor_model_1a3c16612ebd6ba82f4fabd43269c77601" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classloco_1_1_line_sensor_model_1a3c16612ebd6ba82f4fabd43269c77601" kindref="member">update</ref>()</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>measured<sp/>=<sp/>this-&gt;lineSensor.get_value()<sp/>&lt;<sp/><ref refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1ad0bcb6171f921e05a34ce15fe46866b7" kindref="member">LOCO_CONFIG::LINE_SENSOR_THRESHOLD</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="classloco_1_1_line_sensor_model_1aa33dcdb859a8c11703e1a8a6a9d71229" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;double&gt;<sp/><ref refid="classloco_1_1_line_sensor_model_1aa33dcdb859a8c11703e1a8a6a9d71229" kindref="member">p</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Vector3f&amp;<sp/>x)</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::Vector2f<sp/>sensor_position<sp/>=<sp/>Eigen::Rotation2Df(x.z())<sp/>*<sp/>sensorOffset<sp/>+<sp/>x.head&lt;2&gt;();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>predictedDistance<sp/>=<sp/>50.0_m;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lines_y<sp/>:<sp/>LINES_Y)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>predictedDistance<sp/>=<sp/>std::min(abs(sensor_position.y()<sp/>-<sp/>lines_y)<sp/>*<sp/>metre,<sp/>predictedDistance);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>predicted<sp/>=<sp/>predictedDistance<sp/>&lt;<sp/><ref refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a6163cf5f627500753fad5b67f84024fc" kindref="member">LOCO_CONFIG::LINE_SENSOR_DISTANCE_THRESHOLD</ref>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(predicted<sp/>&amp;&amp;<sp/>measured)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1.0<sp/>*<sp/><ref refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a1a5eede7ee84962157278c27f04173a6" kindref="member">LOCO_CONFIG::LINE_WEIGHT</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!predicted<sp/>&amp;&amp;<sp/>!measured)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1.0<sp/>*<sp/><ref refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a1a5eede7ee84962157278c27f04173a6" kindref="member">LOCO_CONFIG::LINE_WEIGHT</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.4<sp/>*<sp/><ref refid="classloco_1_1_l_o_c_o___c_o_n_f_i_g_1a1a5eede7ee84962157278c27f04173a6" kindref="member">LOCO_CONFIG::LINE_WEIGHT</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classloco_1_1_line_sensor_model" kindref="compound">~LineSensorModel</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/line.h"/>
   </compounddef>

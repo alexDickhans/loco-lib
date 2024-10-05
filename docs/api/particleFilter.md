@@ -1,5 +1,5 @@
 # ParticleFilter
 
-```{doxygenclass} ParticleFilter
+```{doxygenclass} loco::ParticleFilter
 :members:
 ```

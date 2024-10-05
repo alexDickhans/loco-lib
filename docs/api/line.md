@@ -1,5 +1,5 @@
 # LineSensorModel
 
-```{doxygenclass} LineSensorModel
+```{doxygenclass} loco::LineSensorModel
 :members:
 ```
