@@ -1,5 +1,0 @@
-# ParticleFilter
-
-```{doxygenclass} ParticleFilter
-:members:
-```

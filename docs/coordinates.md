@@ -1,2 +1,0 @@
-# A Note on Coordinates
-

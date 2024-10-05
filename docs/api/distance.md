@@ -1,5 +1,0 @@
-# DistanceSensorModel
-
-```{doxygenclass} DistanceSensorModel
-:members:
-```

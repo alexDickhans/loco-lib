@@ -1,5 +1,0 @@
-# SensorModel
-
-```{doxygenclass} SensorModel
-:members:
-```

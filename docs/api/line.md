@@ -1,5 +1,0 @@
-# LineSensorModel
-
-```{doxygenclass} LineSensorModel
-:members:
-```

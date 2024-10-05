@@ -1,5 +1,0 @@
-# GpsSensorModel
-
-```{doxygenclass} GpsSensorModel
-:members:
-```
