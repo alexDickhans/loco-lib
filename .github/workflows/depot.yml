@@ -13,6 +13,6 @@ jobs:
       - uses: LemLib/pros-depot@v0.1.0-beta.1
         with:
           token: ${{ github.token }}
-          repo: alexDickhans/locolib
-          source-repo: alexDickhans/locolib
+          repo: alexDickhans/loco-lib
+          source-repo: alexDickhans/loco-lib
           readable-json: true
