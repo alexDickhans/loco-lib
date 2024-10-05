@@ -111,3 +111,126 @@ QLength getDistance(const pros::MotorGroup& motor) {
 }
 ```
 
+## Initialize
+
+First, calibrate the IMU:
+
+```c++
+// Calibrate the IMU and wait until it is done
+imu.reset(true);
+```
+
+Add the distance sensor to the particle filter:
+
+```c++
+// Add the distance sensor to the particle filter
+particleFilter.addSensor(new loco::DistanceSensorModel(DISTANCE_OFFSET, distance));
+```
+
+Initialize the particles in a uniform distribution around the field:
+
+```c++
+// Initialize the starting distribution over the entire field in a uniform manner.
+particleFilter.initUniform(-70_in, -70_in, 70_in, 70_in);
+```
+
+### Making a localization task
+
+Localization can be run many points in code, but we recommend that you give it it's own task, or add it to subsystem code in [command based pros](https://github.com/alexDickhans/command-based-pros). For this example we put create an independently scheduled task for this:
+
+```c++
+// Create a task to run localization
+pros::Task locoTask = pros::Task([&]() {
+```
+
+First, we have the loop code. This makes sure the code is run on a consistent schedule:
+
+```c++
+uint32_t start_time = 0;
+
+// Run localization forever
+while (true) {
+    // Store the start time to ensure that the time between updates remains consistent
+    start_time = pros::millis();
+```
+
+We then get the distance travelled by the drivetrain, and subtract it from the distance last frame to estimate the change:
+
+```c++
+// Store the current distance of the drivetrain
+const QLength leftLength = getDistance(left11W);
+const QLength rightLength = getDistance(right11W);
+
+// Calculate the change from the previous position
+const QLength leftChange = leftLength - lastLeft;
+const QLength rightChange = rightLength - lastRight;
+```
+
+Then, store the current drivetrain position into the last state to be used in the future:
+
+```c++
+// Store the current value as the last value for next frame
+lastLeft = leftLength;
+lastRight = rightLength;
+```
+
+The average distance change in the drivetrain is calculated, on tank drives, this gets the movement in the middle of the robot. 
+
+```c++
+// Calculate the average movement, this is a cheaper way to get the movement of the drive at the center for
+// skid-steer based mechanics
+auto avg = (leftChange + rightChange) / 2.0;
+```
+
+The next step is to define the random distribution objects we will sample from in the prediction step of the filter.
+
+```c++
+// Define the distributions to add noise to the sensor readings
+std::uniform_real_distribution avgDistribution(avg.getValue() - DRIVE_NOISE * avg.getValue(),
+                                               avg.getValue() + DRIVE_NOISE * avg.getValue());
+std::uniform_real_distribution angleDistribution(
+    particleFilter.getAngle().getValue() - ANGLE_NOISE.getValue(),
+    particleFilter.getAngle().getValue() + ANGLE_NOISE.getValue());
+```
+
+We then update the filter with this function, which samples the distributions we just defined creates a local translation and rotates it into the global frame. 
+
+```c++
+// Update the filter with the new data and noise from the sensors
+particleFilter.update([&]() mutable {
+    // Calculate noisy sensor readings
+    const auto noisy = avgDistribution(de);
+    const auto angle = angleDistribution(de);
+
+    // Calculate the translation with the sensor readings
+    return Eigen::Rotation2Df(angle) * Eigen::Vector2f({noisy, 0.0});
+});
+```
+
+Last, we finish off the loop by waiting 10ms from when the loop started:
+
+```c++
+        // Wait 10ms for the next frame, incorporating the wait
+        pros::c::task_delay_until(&start_time, 10);
+    }
+});
+```
+
+### *Notes on the prediction function*
+
+! TODO
+
+## Getting the predictions
+
+In the opcontrol() function, we use the particleFilter.getPrediction() which returns the average particle from the filter. This returns a Eigen::Vector3f, which you can easily get the [x, y, ø] from in SI units.
+
+```c++
+// Get the current pose prediction from the particle filter.
+auto pose = particleFilter.getPrediction();
+
+// Print out the current pose of the robot to the screen in inches and degrees. The outputs from the particle
+// filter are always in base SI units, so meters for position, seconds for time, and radians for angle.
+pros::lcd::set_text(2, std::to_string(pose.x() * metre.Convert(inch)) + ", " +
+```
+
+And that's all you need for a tank drive implementation of the particle filter!
