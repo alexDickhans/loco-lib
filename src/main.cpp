@@ -6,13 +6,14 @@ constexpr QLength WHEEL_RADIUS = 3.25_in/2.0; // Wheel radius
 constexpr float DRIVE_NOISE = 0.35; // The desired amount in % of noise on the drive
 constexpr Angle ANGLE_NOISE = 8_deg; // The noise on the angle that's desired
 
-pros::MotorGroup left11W({}), right11W({}); // left and right motor setup
+pros::MotorGroup left11W({-2, -3}), right11W({6, 7}); // left and right motor setup
 
 // Create IMU and distance sensors
 pros::Imu imu(19);
 pros::Distance distance(18);
 
 // Distance sensor pointed to the left, 5.8 inches to the left, and 4.2 inches back from the center of rotation
+// A different distance offset needs to be used for each distance sensor
 const Eigen::Vector3f DISTANCE_OFFSET((-4.2_in).getValue(), (5.8_in).getValue(), (90_deg).getValue());
 
 // Create a particle filter with 100 particles, and an angle function, given above
