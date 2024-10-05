@@ -120,7 +120,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <span class="keywordflow">return</span> std::nullopt;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> cheap_norm_pdf(sqrt(X.x() * point.x() + X.y() * point.y()) / 2.0f) * LOCO_CONFIG::GPS_WEIGHT;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> cheap_norm_pdf(sqrt(X.x() * point.x() + X.y() * point.y()) / 2.0f) * <a class="code hl_variable" href="class_l_o_c_o___c_o_n_f_i_g.html#a06502e38c143a050aa0b82d1e34b6b6b">LOCO_CONFIG::GPS_WEIGHT</a>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
@@ -138,6 +138,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="aclass_gps_sensor_model_html"><div class="ttname"><a href="class_gps_sensor_model.html">GpsSensorModel</a></div><div class="ttdef"><b>Definition</b> gps.h:7</div></div>
 <div class="ttc" id="aclass_gps_sensor_model_html_a45988e308048fa90d171e8a35bcee487"><div class="ttname"><a href="class_gps_sensor_model.html#a45988e308048fa90d171e8a35bcee487">GpsSensorModel::p</a></div><div class="ttdeci">std::optional&lt; double &gt; p(const Eigen::Vector3f &amp;X) override</div><div class="ttdoc">Determine p(z_k, x_k). This is the chance that this sensor reading (z_k) would occur given the robot ...</div><div class="ttdef"><b>Definition</b> gps.h:29</div></div>
 <div class="ttc" id="aclass_gps_sensor_model_html_abd0fa91ecf89e4ca36aab41c2c60126e"><div class="ttname"><a href="class_gps_sensor_model.html#abd0fa91ecf89e4ca36aab41c2c60126e">GpsSensorModel::update</a></div><div class="ttdeci">void update() override</div><div class="ttdoc">Update object with sensor readings, this function is called every frame (~10ms) and should be used to...</div><div class="ttdef"><b>Definition</b> gps.h:20</div></div>
+<div class="ttc" id="aclass_l_o_c_o___c_o_n_f_i_g_html_a06502e38c143a050aa0b82d1e34b6b6b"><div class="ttname"><a href="class_l_o_c_o___c_o_n_f_i_g.html#a06502e38c143a050aa0b82d1e34b6b6b">LOCO_CONFIG::GPS_WEIGHT</a></div><div class="ttdeci">static constexpr float GPS_WEIGHT</div><div class="ttdoc">Weight for the game positioning sensor. Higher means it will have a larger impact on the particle fil...</div><div class="ttdef"><b>Definition</b> config.h:31</div></div>
 <div class="ttc" id="aclass_sensor_model_html"><div class="ttname"><a href="class_sensor_model.html">SensorModel</a></div><div class="ttdoc">Defiens a SensorModel to be used in the ParticleFilter. This is used in the update step to revise the...</div><div class="ttdef"><b>Definition</b> sensorModel.h:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

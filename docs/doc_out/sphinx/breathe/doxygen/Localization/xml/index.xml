@@ -33,6 +33,13 @@
     <member refid="class_line_sensor_model_1ad378fe5e9415e7b9df1e2e1e62f93716" kind="function"><name>p</name></member>
     <member refid="class_line_sensor_model_1af1647dfdc005bd89acd493d0d5dd7e05" kind="function"><name>~LineSensorModel</name></member>
   </compound>
+  <compound refid="class_l_o_c_o___c_o_n_f_i_g" kind="class"><name>LOCO_CONFIG</name>
+    <member refid="class_l_o_c_o___c_o_n_f_i_g_1a0d3862d9caa518956f15a857c85699e1" kind="variable"><name>LINE_SENSOR_THRESHOLD</name></member>
+    <member refid="class_l_o_c_o___c_o_n_f_i_g_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" kind="variable"><name>LINE_SENSOR_DISTANCE_THRESHOLD</name></member>
+    <member refid="class_l_o_c_o___c_o_n_f_i_g_1a4f7b8f8ab4377f6ad1064c00f365479b" kind="variable"><name>DISTANCE_WEIGHT</name></member>
+    <member refid="class_l_o_c_o___c_o_n_f_i_g_1a06502e38c143a050aa0b82d1e34b6b6b" kind="variable"><name>GPS_WEIGHT</name></member>
+    <member refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" kind="variable"><name>LINE_WEIGHT</name></member>
+  </compound>
   <compound refid="class_particle_filter" kind="class"><name>ParticleFilter</name>
     <member refid="class_particle_filter_1abdc8058eaecb19a9929551c086f0388c" kind="variable"><name>particles</name></member>
     <member refid="class_particle_filter_1aa5b258786931832bd99ae88afc59299b" kind="variable"><name>oldParticles</name></member>
@@ -61,13 +68,6 @@
     <member refid="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1" kind="function"><name>p</name></member>
     <member refid="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e" kind="function"><name>update</name></member>
     <member refid="class_sensor_model_1af126ce3352b705de464b895ee0155472" kind="function"><name>~SensorModel</name></member>
-  </compound>
-  <compound refid="namespace_l_o_c_o___c_o_n_f_i_g" kind="namespace"><name>LOCO_CONFIG</name>
-    <member refid="config_8h_1a0d3862d9caa518956f15a857c85699e1" kind="variable"><name>LINE_SENSOR_THRESHOLD</name></member>
-    <member refid="config_8h_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" kind="variable"><name>LINE_SENSOR_DISTANCE_THRESHOLD</name></member>
-    <member refid="config_8h_1a4f7b8f8ab4377f6ad1064c00f365479b" kind="variable"><name>DISTANCE_WEIGHT</name></member>
-    <member refid="config_8h_1a06502e38c143a050aa0b82d1e34b6b6b" kind="variable"><name>GPS_WEIGHT</name></member>
-    <member refid="config_8h_1ad64efe965937b0eebfdfddaa5f7b9347" kind="variable"><name>LINE_WEIGHT</name></member>
   </compound>
   <compound refid="config_8h" kind="file"><name>config.h</name>
   </compound>

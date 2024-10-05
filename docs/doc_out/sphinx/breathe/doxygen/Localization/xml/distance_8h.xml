@@ -175,7 +175,7 @@
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>predicted<sp/>=<sp/>std::min((x.y()<sp/>-<sp/>WALL_3_Y)<sp/>/<sp/>cos(theta),<sp/>predicted);</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cheap_norm_pdf((predicted<sp/>-<sp/>measured.getValue())/std.getValue())<sp/>*<sp/>LOCO_CONFIG::DISTANCE_WEIGHT;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cheap_norm_pdf((predicted<sp/>-<sp/>measured.getValue())/std.getValue())<sp/>*<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1a4f7b8f8ab4377f6ad1064c00f365479b" kindref="member">LOCO_CONFIG::DISTANCE_WEIGHT</ref>;</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_distance_sensor_model" kindref="compound">~DistanceSensorModel</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>

@@ -32,7 +32,7 @@
 \DoxyCodeLine{00028\ \ \ \ \ \}}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_line_sensor_model_a055567b171c5405d2af8f3ac729e058a}{update}}()\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ measured\ =\ this-\/>lineSensor.get\_value()\ <\ LOCO\_CONFIG::LINE\_SENSOR\_THRESHOLD;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ measured\ =\ this-\/>lineSensor.get\_value()\ <\ \mbox{\hyperlink{class_l_o_c_o___c_o_n_f_i_g_a0d3862d9caa518956f15a857c85699e1}{LOCO\_CONFIG::LINE\_SENSOR\_THRESHOLD}};}
 \DoxyCodeLine{00032\ \ \ \ \ \}}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \ \ \ \ std::optional<double>\ \mbox{\hyperlink{class_line_sensor_model_ad378fe5e9415e7b9df1e2e1e62f93716}{p}}(\textcolor{keyword}{const}\ Eigen::Vector3f\&\ x)\textcolor{keyword}{\ override\ }\{}
@@ -44,14 +44,14 @@
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ predictedDistance\ =\ std::min(abs(sensor\_position.y()\ -\/\ lines\_y)\ *\ metre,\ predictedDistance);}
 \DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ predicted\ =\ predictedDistance\ <\ LOCO\_CONFIG::LINE\_SENSOR\_DISTANCE\_THRESHOLD;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ predicted\ =\ predictedDistance\ <\ \mbox{\hyperlink{class_l_o_c_o___c_o_n_f_i_g_ace3c225150ef72f4bd7cbfbaaf9c5cf0}{LOCO\_CONFIG::LINE\_SENSOR\_DISTANCE\_THRESHOLD}};}
 \DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (predicted\ \&\&\ measured)\ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ *\ LOCO\_CONFIG::LINE\_WEIGHT;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ *\ \mbox{\hyperlink{class_l_o_c_o___c_o_n_f_i_g_ad64efe965937b0eebfdfddaa5f7b9347}{LOCO\_CONFIG::LINE\_WEIGHT}};}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!predicted\ \&\&\ !measured)\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ *\ LOCO\_CONFIG::LINE\_WEIGHT;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ *\ \mbox{\hyperlink{class_l_o_c_o___c_o_n_f_i_g_ad64efe965937b0eebfdfddaa5f7b9347}{LOCO\_CONFIG::LINE\_WEIGHT}};}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.4\ *\ LOCO\_CONFIG::LINE\_WEIGHT;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.4\ *\ \mbox{\hyperlink{class_l_o_c_o___c_o_n_f_i_g_ad64efe965937b0eebfdfddaa5f7b9347}{LOCO\_CONFIG::LINE\_WEIGHT}};}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00052\ \ \ \ \ \}}
 \DoxyCodeLine{00053\ }

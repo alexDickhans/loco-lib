@@ -157,7 +157,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            predicted = std::min((x.y() - WALL_3_Y) / cos(theta), predicted);</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> cheap_norm_pdf((predicted - measured.getValue())/std.getValue()) * LOCO_CONFIG::DISTANCE_WEIGHT;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> cheap_norm_pdf((predicted - measured.getValue())/std.getValue()) * <a class="code hl_variable" href="class_l_o_c_o___c_o_n_f_i_g.html#a4f7b8f8ab4377f6ad1064c00f365479b">LOCO_CONFIG::DISTANCE_WEIGHT</a>;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
 </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
@@ -167,6 +167,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="aclass_distance_sensor_model_html"><div class="ttname"><a href="class_distance_sensor_model.html">DistanceSensorModel</a></div><div class="ttdef"><b>Definition</b> distance.h:18</div></div>
 <div class="ttc" id="aclass_distance_sensor_model_html_a1b691034552e9472807073bcface92f5"><div class="ttname"><a href="class_distance_sensor_model.html#a1b691034552e9472807073bcface92f5">DistanceSensorModel::update</a></div><div class="ttdeci">void update() override</div><div class="ttdoc">Update object with sensor readings, this function is called every frame (~10ms) and should be used to...</div><div class="ttdef"><b>Definition</b> distance.h:32</div></div>
 <div class="ttc" id="aclass_distance_sensor_model_html_ad73b55b4fb45651fead2802942adf135"><div class="ttname"><a href="class_distance_sensor_model.html#ad73b55b4fb45651fead2802942adf135">DistanceSensorModel::p</a></div><div class="ttdeci">std::optional&lt; double &gt; p(const Eigen::Vector3f &amp;X) override</div><div class="ttdoc">Determine p(z_k, x_k). This is the chance that this sensor reading (z_k) would occur given the robot ...</div><div class="ttdef"><b>Definition</b> distance.h:43</div></div>
+<div class="ttc" id="aclass_l_o_c_o___c_o_n_f_i_g_html_a4f7b8f8ab4377f6ad1064c00f365479b"><div class="ttname"><a href="class_l_o_c_o___c_o_n_f_i_g.html#a4f7b8f8ab4377f6ad1064c00f365479b">LOCO_CONFIG::DISTANCE_WEIGHT</a></div><div class="ttdeci">static constexpr float DISTANCE_WEIGHT</div><div class="ttdoc">Weight for the distance sensor. Higher means it will have a larger impact on the particle filter,...</div><div class="ttdef"><b>Definition</b> config.h:25</div></div>
 <div class="ttc" id="aclass_sensor_model_html"><div class="ttname"><a href="class_sensor_model.html">SensorModel</a></div><div class="ttdoc">Defiens a SensorModel to be used in the ParticleFilter. This is used in the update step to revise the...</div><div class="ttdef"><b>Definition</b> sensorModel.h:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

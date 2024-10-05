@@ -26,4 +26,4 @@ Add includes to your projects `main.h`
 #include "command/includes.h"
 ```
 
-You're all set, take a look at the [Annotated Intake Example](intakeExample.md) next!
+You're all set, take a look at the [Annotated Example](example.md) next!
