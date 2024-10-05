@@ -1,0 +1,12 @@
+[
+  {
+    "metadata": {
+      "location": "https://github.com/alexDickhans/loco-lib/releases/download/v0.1.0/locolib%400.1.0.zip"
+    },
+    "name": "locolib",
+    "py/object": "pros.conductor.templates.base_template.BaseTemplate",
+    "supported_kernels": "^4.1.0",
+    "target": "v5",
+    "version": "0.1.0"
+  }
+]
