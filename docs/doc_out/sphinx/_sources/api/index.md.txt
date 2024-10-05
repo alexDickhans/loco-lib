@@ -5,6 +5,7 @@
 :caption: API
 
 ./config.md
+./distance.md
 ./line.md
 ./gps.md
 ./sensorModel.md
