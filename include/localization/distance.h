@@ -1,48 +1,97 @@
 #pragma once
 
-#include "sensor.h"
+#include "sensorModel.h"
+#include "utils.h"
 
-const std::vector<std::pair<Eigen::Vector2d, Eigen::Vector2d>> WALLS = {};
+namespace loco {
+    const std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f> > WALLS = {
+        {{1.78308, 1.78308}, {1.78308, -1.78308}},
+        {{1.78308, -1.78308}, {-1.78308, -1.78308}},
+        {{-1.78308, -1.78308}, {-1.78308, 1.78308}},
+        {{-1.78308, 1.78308}, {1.78308, 1.78308}},
+    };
 
-class Distance : public Sensor {
-private:
-	Eigen::Vector3d sensorOffset;
-	pros::Distance distance;
-public:
-	Distance(Eigen::Vector3d sensor_offset, pros::Distance distance)
-		: sensorOffset(std::move(sensor_offset)),
-		  distance(std::move(distance)) {
-	}
+    constexpr float WALL_0_X = 1.78308;
+    constexpr float WALL_1_Y = 1.78308;
+    constexpr float WALL_2_X = -1.78308;
+    constexpr float WALL_3_Y = -1.78308;
 
-	std::optional<double> p(Eigen::Vector3d x) override {
-		const auto measured = distance.get();
+    /**
+     * @brief Sensor model representation of distance sensors pointed directly at the walls on a specified position on the robot.
+     *
+     * Uses a field model made up of 4 walls, represented by horizontal and vertical lines, and uses secant to predict the
+     * distance to the wall and compares this against the measured value.
+     */
+    class DistanceSensorModel : public SensorModel {
+    private:
+        Eigen::Vector3f sensorOffset;
+        pros::Distance distance;
 
-		if (measured == 9999 || distance.get_object_size() < 50) {
-			return std::nullopt;
-		}
+        QLength measured = 0.0;
+        bool exit = false;
+        QLength std = 0.0;
 
-		const auto measuredMeters = measured * 1_mm;
+    public:
+        /**
+         *
+         * @param sensor_offset [x, y, ø] of the distance sensor relative to the tracking center of the robot.
+         * @param distance pros::Distance object, moved to this object.
+         */
+        DistanceSensorModel(Eigen::Vector3f sensor_offset, pros::Distance distance)
+            : sensorOffset(std::move(sensor_offset)),
+              distance(std::move(distance)) {
+        }
 
-		auto v_1 = Eigen::Rotation2Dd(x.z()) * sensorOffset.head<2>();
-		auto v_2 = Eigen::Rotation2Dd(sensorOffset.z() + x.z()) * Eigen::Vector2d(1.0, 0.0) + v_1;
+        /**
+         * Update sensor reading
+         */
+        void update() override {
+            const auto measuredMM = distance.get();
 
-		auto predicted = 50_m;
+            exit = measuredMM == 9999 || distance.get_object_size() < 70;
 
-		for (const auto & [v_3, v_4] : WALLS) {
-			auto t = ((v_1.x() - v_3.x()) * (v_3.y() - v_4.y())
-					- (v_1.y() - v_3.y()) * (v_3.x() - v_4.x()))
-					/ ((v_1.x() - v_2.x()) * (v_3.y() - v_4.y())
-						- (v_1.y() - v_2.y()) * (v_3.x() - v_4.x()));
+            measured = measuredMM * millimetre;
 
-			if (t > 0.0 && finite(t)) {
-				predicted = std::min(predicted, t * metre);
-			}
-		}
+            std = 0.20 * measured / (distance.get_confidence() / 64.0);
+        }
 
-		const auto std = 0.025 * predicted / (distance.get_confidence() / 64.0);
+        /**
+         * @brief Determine p(z, x) where z is the current distance sensor position, and x is the predicted position of the
+         * robot.
+         *
+         * @param X The particle position
+         * @return probability for the current distance sensor reading, given the robot is at the point X
+         */
+        [[nodiscard]] std::optional<double> p(const Eigen::Vector3f &X) override {
+            if (exit) {
+                return std::nullopt;
+            }
 
-		return normal_pdf(measuredMeters.getValue(), predicted.getValue(), std.getValue()) * LOCO_CONFIG::DISTANCE_WEIGHT;
-	}
+            auto angle = X.z() + sensorOffset.z();
 
-	~Distance() override = default;
-};
+            Eigen::Vector2f x = X.head<2>() + Eigen::Rotation2Df(X.z()) * sensorOffset.head<2>();
+
+            auto predicted = 50.0f;
+
+            if (const auto theta = abs(std::remainder(0.0f, angle)); theta < M_PI_2) {
+                predicted = std::min((WALL_0_X - x.x()) / cos(theta), predicted);
+            }
+
+            if (const auto theta = abs(std::remainder(static_cast<float>(M_PI_2), angle)); theta < M_PI_2) {
+                predicted = std::min((WALL_1_Y - x.y()) / cos(theta), predicted);
+            }
+
+            if (const auto theta = abs(std::remainder(static_cast<float>(M_PI), angle)); theta < M_PI_2) {
+                predicted = std::min((x.x() - WALL_2_X) / cos(theta), predicted);
+            }
+
+            if (const auto theta = abs(std::remainder(static_cast<float>(M_3PI_4), angle)); theta < M_PI_2) {
+                predicted = std::min((x.y() - WALL_3_Y) / cos(theta), predicted);
+            }
+
+            return cheap_norm_pdf((predicted - measured.getValue()) / std.getValue()) * LOCO_CONFIG::DISTANCE_WEIGHT;
+        }
+
+        ~DistanceSensorModel() override = default;
+    };
+}

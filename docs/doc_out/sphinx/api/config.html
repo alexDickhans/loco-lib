@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Config &mdash; Loco Lib 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=e031e9a9"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DistanceSensorModel" href="distance.html" />
+    <link rel="prev" title="API Reference" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Loco Lib
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Loco Lib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinates.html">A Note on Coordinates</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distance.html">DistanceSensorModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="line.html">LineSensorModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gps.html">GpsSensorModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensorModel.html">SensorModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="particleFilter.html">ParticleFilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Loco Lib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Config</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/config.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="config">
+<h1>Config<a class="headerlink" href="#config" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv411LOCO_CONFIG">
+<span id="_CPPv311LOCO_CONFIG"></span><span id="_CPPv211LOCO_CONFIG"></span><span id="LOCO_CONFIG"></span><span class="target" id="class_l_o_c_o___c_o_n_f_i_g"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOCO_CONFIG</span></span></span><a class="headerlink" href="#_CPPv411LOCO_CONFIG" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Static class to hold configuration values for the particle filter. Generally, these values are a good starting point and will work in most use cases, but that can also be changed as needed. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11LOCO_CONFIG21LINE_SENSOR_THRESHOLDE">
+<span id="_CPPv3N11LOCO_CONFIG21LINE_SENSOR_THRESHOLDE"></span><span id="_CPPv2N11LOCO_CONFIG21LINE_SENSOR_THRESHOLDE"></span><span id="LOCO_CONFIG::LINE_SENSOR_THRESHOLD__s"></span><span class="target" id="class_l_o_c_o___c_o_n_f_i_g_1a0d3862d9caa518956f15a857c85699e1"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LINE_SENSOR_THRESHOLD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2000</span></span><a class="headerlink" href="#_CPPv4N11LOCO_CONFIG21LINE_SENSOR_THRESHOLDE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sensor threshold for determining if the line sensor is over a line. This is a good value at approximately 7mm from the tiles, which we found was a good balance between packaging and sensor SNR. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11LOCO_CONFIG30LINE_SENSOR_DISTANCE_THRESHOLDE">
+<span id="_CPPv3N11LOCO_CONFIG30LINE_SENSOR_DISTANCE_THRESHOLDE"></span><span id="_CPPv2N11LOCO_CONFIG30LINE_SENSOR_DISTANCE_THRESHOLDE"></span><span id="LOCO_CONFIG::LINE_SENSOR_DISTANCE_THRESHOLD__QLength"></span><span class="target" id="class_l_o_c_o___c_o_n_f_i_g_1ace3c225150ef72f4bd7cbfbaaf9c5cf0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">QLength</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LINE_SENSOR_DISTANCE_THRESHOLD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="n"><span class="pre">_in</span></span><a class="headerlink" href="#_CPPv4N11LOCO_CONFIG30LINE_SENSOR_DISTANCE_THRESHOLDE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Distance from the CENTER of the line to predict the value to be positive. Largely untested, but upon more testing this value will be updated appropriately. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11LOCO_CONFIG15DISTANCE_WEIGHTE">
+<span id="_CPPv3N11LOCO_CONFIG15DISTANCE_WEIGHTE"></span><span id="_CPPv2N11LOCO_CONFIG15DISTANCE_WEIGHTE"></span><span id="LOCO_CONFIG::DISTANCE_WEIGHT__float"></span><span class="target" id="class_l_o_c_o___c_o_n_f_i_g_1a4f7b8f8ab4377f6ad1064c00f365479b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DISTANCE_WEIGHT</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.0</span></span><a class="headerlink" href="#_CPPv4N11LOCO_CONFIG15DISTANCE_WEIGHTE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Weight for the distance sensor. Higher means it will have a larger impact on the particle filter, lower means a smaller impact. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11LOCO_CONFIG10GPS_WEIGHTE">
+<span id="_CPPv3N11LOCO_CONFIG10GPS_WEIGHTE"></span><span id="_CPPv2N11LOCO_CONFIG10GPS_WEIGHTE"></span><span id="LOCO_CONFIG::GPS_WEIGHT__float"></span><span class="target" id="class_l_o_c_o___c_o_n_f_i_g_1a06502e38c143a050aa0b82d1e34b6b6b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GPS_WEIGHT</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.0</span></span><a class="headerlink" href="#_CPPv4N11LOCO_CONFIG10GPS_WEIGHTE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Weight for the game positioning sensor. Higher means it will have a larger impact on the particle filter, lower means a smaller impact. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11LOCO_CONFIG11LINE_WEIGHTE">
+<span id="_CPPv3N11LOCO_CONFIG11LINE_WEIGHTE"></span><span id="_CPPv2N11LOCO_CONFIG11LINE_WEIGHTE"></span><span id="LOCO_CONFIG::LINE_WEIGHT__float"></span><span class="target" id="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LINE_WEIGHT</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.0</span></span><a class="headerlink" href="#_CPPv4N11LOCO_CONFIG11LINE_WEIGHTE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Weight for the line sensor. Higher means it will have a larger impact on the particle filter, lower means a smaller impact. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="distance.html" class="btn btn-neutral float-right" title="DistanceSensorModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Alex Dickhans.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

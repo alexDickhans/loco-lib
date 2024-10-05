@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="class_distance_sensor_model" kind="class" language="C++" prot="public">
+    <compoundname>DistanceSensorModel</compoundname>
+    <basecompoundref refid="class_sensor_model" prot="public" virt="non-virtual">SensorModel</basecompoundref>
+    <includes refid="distance_8h" local="no">distance.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_distance_sensor_model_1a6bad8ba4631c486be80fe57b17df44e5" prot="private" static="no" mutable="no">
+        <type>Eigen::Vector3f</type>
+        <definition>Eigen::Vector3f DistanceSensorModel::sensorOffset</definition>
+        <argsstring></argsstring>
+        <name>sensorOffset</name>
+        <qualifiedname>DistanceSensorModel::sensorOffset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="26" column="21" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_distance_sensor_model_1a67501f821f0811cfc916126610a4a4d5" prot="private" static="no" mutable="no">
+        <type>pros::Distance</type>
+        <definition>pros::Distance DistanceSensorModel::distance</definition>
+        <argsstring></argsstring>
+        <name>distance</name>
+        <qualifiedname>DistanceSensorModel::distance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="27" column="20" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_distance_sensor_model_1adabaabb80d8ae1c923e81dce6bfc9b3c" prot="private" static="no" mutable="no">
+        <type>QLength</type>
+        <definition>QLength DistanceSensorModel::measured</definition>
+        <argsstring></argsstring>
+        <name>measured</name>
+        <qualifiedname>DistanceSensorModel::measured</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="29" column="13" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_distance_sensor_model_1a11fdbb3a5de50aadd977278223cdddc2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DistanceSensorModel::exit</definition>
+        <argsstring></argsstring>
+        <name>exit</name>
+        <qualifiedname>DistanceSensorModel::exit</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="30" column="10" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_distance_sensor_model_1af46d1949e41af092425835a45669d35d" prot="private" static="no" mutable="no">
+        <type>QLength</type>
+        <definition>QLength DistanceSensorModel::std</definition>
+        <argsstring></argsstring>
+        <name>std</name>
+        <qualifiedname>DistanceSensorModel::std</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="31" column="13" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_distance_sensor_model_1a07c92d06bd73c81a4f8919755f590000" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DistanceSensorModel::DistanceSensorModel</definition>
+        <argsstring>(Eigen::Vector3f sensor_offset, pros::Distance distance)</argsstring>
+        <name>DistanceSensorModel</name>
+        <qualifiedname>DistanceSensorModel::DistanceSensorModel</qualifiedname>
+        <param>
+          <type>Eigen::Vector3f</type>
+          <declname>sensor_offset</declname>
+        </param>
+        <param>
+          <type>pros::Distance</type>
+          <declname>distance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[x, y, ø] of the distance sensor relative to the tracking center of the robot. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>distance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pros::Distance object, moved to this object. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="39" column="5" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_distance_sensor_model_1a1b691034552e9472807073bcface92f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void DistanceSensorModel::update</definition>
+        <argsstring>() override</argsstring>
+        <name>update</name>
+        <qualifiedname>DistanceSensorModel::update</qualifiedname>
+        <reimplements refid="class_sensor_model_1a28672cf65d6e6a9bc967e5661d26e21e">update</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update sensor reading </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="47" column="10" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="47" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="class_distance_sensor_model_1ad73b55b4fb45651fead2802942adf135" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::optional&lt; double &gt;</type>
+        <definition>std::optional&lt; double &gt; DistanceSensorModel::p</definition>
+        <argsstring>(const Eigen::Vector3f &amp;X) override</argsstring>
+        <name>p</name>
+        <qualifiedname>DistanceSensorModel::p</qualifiedname>
+        <reimplements refid="class_sensor_model_1a39aea7b966a95a3579714f84b408f6a1">p</reimplements>
+        <param>
+          <type>const Eigen::Vector3f &amp;</type>
+          <declname>X</declname>
+        </param>
+        <briefdescription>
+<para>Determine p(z, x) where z is the current distance sensor position, and x is the predicted position of the robot. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>X</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The particle position </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>probability for the current distance sensor reading, given the robot is at the point X </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="64" column="20" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="64" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="class_distance_sensor_model_1aa61534c034f816cb7a0ab662b8768503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DistanceSensorModel::~DistanceSensorModel</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~DistanceSensorModel</name>
+        <qualifiedname>DistanceSensorModel::~DistanceSensorModel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="94" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Sensor model representation of distance sensors pointed directly at the walls on a specified position on the robot. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Uses a field model made up of 4 walls, represented by horizontal and vertical lines, and uses secant to predict the distance to the wall and compares this against the measured value. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DistanceSensorModel</label>
+        <link refid="class_distance_sensor_model"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SensorModel</label>
+        <link refid="class_sensor_model"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>DistanceSensorModel</label>
+        <link refid="class_distance_sensor_model"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SensorModel</label>
+        <link refid="class_sensor_model"/>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" line="24" column="1" bodyfile="/Users/alex/Documents/VEX/loco-lib/include/localization/distance.h" bodystart="24" bodyend="95"/>
+    <listofallmembers>
+      <member refid="class_distance_sensor_model_1a67501f821f0811cfc916126610a4a4d5" prot="private" virt="non-virtual"><scope>DistanceSensorModel</scope><name>distance</name></member>
+      <member refid="class_distance_sensor_model_1a07c92d06bd73c81a4f8919755f590000" prot="public" virt="non-virtual"><scope>DistanceSensorModel</scope><name>DistanceSensorModel</name></member>
+      <member refid="class_distance_sensor_model_1a11fdbb3a5de50aadd977278223cdddc2" prot="private" virt="non-virtual"><scope>DistanceSensorModel</scope><name>exit</name></member>
+      <member refid="class_distance_sensor_model_1adabaabb80d8ae1c923e81dce6bfc9b3c" prot="private" virt="non-virtual"><scope>DistanceSensorModel</scope><name>measured</name></member>
+      <member refid="class_distance_sensor_model_1ad73b55b4fb45651fead2802942adf135" prot="public" virt="virtual"><scope>DistanceSensorModel</scope><name>p</name></member>
+      <member refid="class_distance_sensor_model_1a6bad8ba4631c486be80fe57b17df44e5" prot="private" virt="non-virtual"><scope>DistanceSensorModel</scope><name>sensorOffset</name></member>
+      <member refid="class_distance_sensor_model_1af46d1949e41af092425835a45669d35d" prot="private" virt="non-virtual"><scope>DistanceSensorModel</scope><name>std</name></member>
+      <member refid="class_distance_sensor_model_1a1b691034552e9472807073bcface92f5" prot="public" virt="virtual"><scope>DistanceSensorModel</scope><name>update</name></member>
+      <member refid="class_distance_sensor_model_1aa61534c034f816cb7a0ab662b8768503" prot="public" virt="non-virtual"><scope>DistanceSensorModel</scope><name>~DistanceSensorModel</name></member>
+      <member refid="class_sensor_model_1af126ce3352b705de464b895ee0155472" prot="public" virt="virtual"><scope>DistanceSensorModel</scope><name>~SensorModel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

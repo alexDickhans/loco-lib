@@ -1,35 +1,59 @@
 #pragma once
 
 #include "config.h"
-#include "sensor.h"
-#include "utils/utils.h"
+#include "sensorModel.h"
+#include "utils.h"
 
-class GpsSensor : public Sensor {
-private:
-	pros::Gps gps;
-	Angle sensorAngleOffset;
-public:
-	GpsSensor(pros::Gps gps, const Angle sensorAngleOffset)
-		: gps(std::move(gps)),
-		  sensorAngleOffset(sensorAngleOffset) {
-	}
+namespace loco {
+    /**
+     * @brief A sensor model for the VEX game positioning system. Uses the current position of the sensor and the
+     * .getError() value to determine the confidence of the points
+     */
+    class GpsSensorModel : public SensorModel {
+    private:
+        pros::Gps gps;
+        Angle sensorAngleOffset;
+        Eigen::Vector2f point{};
+        double std{0.0};
+        bool notInstalled{false};
 
-	std::optional<double> p(Eigen::Vector3d X) override {
-		if (!gps.is_installed()) {
-			return std::nullopt;
-		}
+    public:
+        /**
+         *
+         * @param sensorAngleOffset The offset ø of the robot, in the local coordinate system
+         * @param gps A pros::Gps object, moved in the constructor
+         */
+        GpsSensorModel(const Angle sensorAngleOffset, pros::Gps gps)
+            : gps(std::move(gps)),
+              sensorAngleOffset(sensorAngleOffset) {
+        }
 
-		// TODO: Flag stuff
+        void update() override {
+            notInstalled = !gps.is_installed() || gps.get_error() > 0.015;
+            auto [x, y] = gps.get_position();
 
-		auto [x, y] = gps.get_position();
+            point = Eigen::Vector2f(-y, x);
 
-		const auto std = gps.get_error();
+            std = gps.get_error() * 8.0;
+        }
 
-		const auto point = Eigen::Vector2d(x, y);
-		const auto predicted = Eigen::Vector2d(X.x(), X.y());
+        std::optional<double> p(const Eigen::Vector3f &X) override {
+            if (notInstalled) [[unlikely]] {
+                return std::nullopt;
+            }
 
-		return normal_pdf((point - predicted).norm(), 0.0, std) * LOCO_CONFIG::GPS_WEIGHT;
-	}
+            return cheap_norm_pdf(sqrt(X.x() * point.x() + X.y() * point.y()) / 2.0f) * LOCO_CONFIG::GPS_WEIGHT;
+        }
 
-	~GpsSensor() override = default;
-};
+        /**
+         * Get the angle directly from the GPS sensor in the locolib coordinate system
+         *
+         * @return Angle in the Loco lib coordinate system
+         */
+        Angle getAngle() {
+            return -gps.get_yaw() * 1_deg - sensorAngleOffset;
+        }
+
+        ~GpsSensorModel() override = default;
+    };
+}

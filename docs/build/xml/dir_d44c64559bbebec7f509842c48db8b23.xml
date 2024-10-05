@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="dir_d44c64559bbebec7f509842c48db8b23" kind="dir">
+    <compoundname>/Users/alex/Documents/VEX/loco-lib/include</compoundname>
+    <innerdir refid="dir_e2cb63b3e6c0ee56c23ed03411347345">/Users/alex/Documents/VEX/loco-lib/include/localization</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/alex/Documents/VEX/loco-lib/include/"/>
+  </compounddef>
+</doxygen>

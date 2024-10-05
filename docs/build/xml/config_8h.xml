@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="config_8h" kind="file" language="C++">
+    <compoundname>config.h</compoundname>
+    <includedby refid="gps_8h" local="yes">/Users/alex/Documents/VEX/loco-lib/include/localization/gps.h</includedby>
+    <includedby refid="line_8h" local="yes">/Users/alex/Documents/VEX/loco-lib/include/localization/line.h</includedby>
+    <includedby refid="particle_filter_8h" local="yes">/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h</includedby>
+    <invincdepgraph>
+      <node id="1">
+        <label>/Users/alex/Documents/VEX/loco-lib/include/localization/config.h</label>
+        <link refid="config_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/Users/alex/Documents/VEX/loco-lib/include/localization/gps.h</label>
+        <link refid="gps_8h_source"/>
+      </node>
+      <node id="3">
+        <label>/Users/alex/Documents/VEX/loco-lib/include/localization/line.h</label>
+        <link refid="line_8h_source"/>
+      </node>
+      <node id="4">
+        <label>/Users/alex/Documents/VEX/loco-lib/include/localization/particleFilter.h</label>
+        <link refid="particle_filter_8h_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_l_o_c_o___c_o_n_f_i_g" prot="public">LOCO_CONFIG</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_l_o_c_o___c_o_n_f_i_g" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_l_o_c_o___c_o_n_f_i_g" kindref="compound">LOCO_CONFIG</ref><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13" refid="class_l_o_c_o___c_o_n_f_i_g_1a0d3862d9caa518956f15a857c85699e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1a0d3862d9caa518956f15a857c85699e1" kindref="member">LINE_SENSOR_THRESHOLD</ref><sp/>=<sp/>2000;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="class_l_o_c_o___c_o_n_f_i_g_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>QLength<sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1ace3c225150ef72f4bd7cbfbaaf9c5cf0" kindref="member">LINE_SENSOR_DISTANCE_THRESHOLD</ref><sp/>=<sp/>1_in;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="class_l_o_c_o___c_o_n_f_i_g_1a4f7b8f8ab4377f6ad1064c00f365479b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1a4f7b8f8ab4377f6ad1064c00f365479b" kindref="member">DISTANCE_WEIGHT</ref><sp/>=<sp/>1.0;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_l_o_c_o___c_o_n_f_i_g_1a06502e38c143a050aa0b82d1e34b6b6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1a06502e38c143a050aa0b82d1e34b6b6b" kindref="member">GPS_WEIGHT</ref><sp/>=<sp/>1.0;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="class_l_o_c_o___c_o_n_f_i_g_1ad64efe965937b0eebfdfddaa5f7b9347" kindref="member">LINE_WEIGHT</ref><sp/>=<sp/>1.0;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/Users/alex/Documents/VEX/loco-lib/include/localization/config.h"/>
+  </compounddef>
+</doxygen>
