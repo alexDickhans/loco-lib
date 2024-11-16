@@ -1,6 +1,6 @@
 # LocoLib
 
-LocoLib is a localization library for robotics applications. It provides a particle filter implementation to estimate the position and orientation of a robot using sensor data.
+LocoLib is a localization library for [VEX Robotics](https://www.vexrobotics.com/). It provides a particle filter implementation to estimate the position and orientation of a robot using sensor data.
 
 ## Features
 
