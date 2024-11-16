@@ -1,203 +1,243 @@
 #pragma once
 
 #include "Eigen/Eigen"
-#include "units/units.hpp"
 #include "sensorModel.h"
+#include "units/units.hpp"
 
-#include <random>
 #include <algorithm>
+#include <random>
 
 #include "config.h"
 
 namespace loco {
-    /**
-     * @brief Initializes a particle filter with a pre-specified number of particles.
-     *
-     * @warning Due to current efficiency limitations, the particle limit is 500 (Takes approximately 6ms to compute each
-     * frame). For calculating frame time, estimate processing time to be 12µs/particle.
-     *
-     * @tparam L Number of particle to initialize the filter with. More is generally better for accuracy, however there are
-     * diminishing returns once the particle count is greater than 100, view warning for notes on large particle quantities.
-     */
-    template<size_t L>
-    class ParticleFilter {
-        // Ensure particles are less than the max of 500 particles
-        static_assert(std::less_equal<size_t>()(L, 500));
+	/**
+	 * @brief Initializes a particle filter with a pre-specified number of particles.
+	 *
+	 * @warning Due to current efficiency limitations, the particle limit is 500 (Takes approximately 6ms to compute
+	 * each frame). For calculating frame time, estimate processing time to be 12µs/particle.
+	 *
+	 * @tparam L Number of particle to initialize the filter with. More is generally better for accuracy, however there
+	 * are diminishing returns once the particle count is greater than 100, view warning for notes on large particle
+	 * quantities.
+	 */
+	template<size_t L>
+	class ParticleFilter {
+		// Ensure particles are less than the max of 500 particles
+		static_assert(std::less_equal<size_t>()(L, 500));
 
-    private:
-        /**
-         *
-         */
-        std::array<std::array<float, 2>, L> particles;
-        std::array<std::array<float, 2>, L> oldParticles;
-        std::array<float, L> weights;
+	private:
+		/**
+		 *
+		 */
+		std::array<std::array<float, 2>, L> particles;
+		std::array<std::array<float, 2>, L> oldParticles;
+		std::array<float, L> weights;
 
-        Eigen::Vector3f prediction{};
+		Eigen::Vector3f prediction{};
 
-        std::vector<SensorModel *> sensors;
+		std::vector<SensorModel *> sensors;
 
-        QLength distanceSinceUpdate = 0.0;
-        QTime lastUpdateTime = 0.0;
+		QLength distanceSinceUpdate = 0.0;
+		QTime lastUpdateTime = 0.0;
 
-        QLength maxDistanceSinceUpdate = 1_in;
-        QTime maxUpdateInterval = 2_s;
+		QLength maxDistanceSinceUpdate = 1_in;
+		QTime maxUpdateInterval = 2_s;
 
-        std::function<Angle()> angleFunction;
-        std::ranlux24_base de;
+		std::function<Angle()> angleFunction;
+		std::ranlux24_base de;
 
-        std::uniform_real_distribution<> fieldDist{-1.78308, 1.78308};
+		std::uniform_real_distribution<> fieldDist{-1.78308, 1.78308};
 
-    public:
-        explicit ParticleFilter(std::function<Angle()> angle_function)
-            : angleFunction(std::move(angle_function)) {
-            for (auto &&particle: particles) {
-                particle[0] = 0.0;
-                particle[1] = 0.0;
-            }
-        }
+		static bool outOfField(const std::array<float, 2> &vector) {
+			return vector[0] > 1.78308 || vector[0] < -1.78308 || vector[1] < -1.78308 || vector[1] > 1.78308;
+		}
 
-        Eigen::Vector3f getPrediction() {
-            return prediction;
-        }
+	public:
+		/**
+		 * @brief Initialize a new particle filter
+		 *
+		 * @param angle_function Function to get the current angle of the robot with +ø being counterclockwise
+		 */
+		explicit ParticleFilter(std::function<Angle()> angle_function) : angleFunction(std::move(angle_function)) {
+			for (auto &&particle: particles) {
+				particle[0] = 0.0;
+				particle[1] = 0.0;
+			}
+		}
 
-        std::array<Eigen::Vector3f, L> getParticles() {
-            std::array<Eigen::Vector3f, L> particles;
+		/**
+		 * @brief Get the current prediction from the particle filter
+		 *
+		 * @return The current position prediction of the robot in [x, y, ø]ᵀ
+		 */
+		Eigen::Vector3f getPrediction() { return prediction; }
 
-            const Angle angle = angleFunction();
+		/**
+		 * @brief Get a copy of the entire MCL belief of the system
+		 *
+		 * @return The entire particle belief of the system with each particle in the form [x, y, ø]ᵀ
+		 */
+		std::array<Eigen::Vector3f, L> getParticles() {
+			std::array<Eigen::Vector3f, L> particles;
 
-            for (size_t i = 0; i < L; i++) {
-                particles[i] = Eigen::Vector3f(this->particles[i][0], this->particles[i][1], angle.getValue());
-            }
+			const Angle angle = angleFunction();
 
-            return particles;
-        }
+			for (size_t i = 0; i < L; i++) {
+				particles[i] = Eigen::Vector3f(this->particles[i][0], this->particles[i][1], angle.getValue());
+			}
 
-        Eigen::Vector3f getParticle(size_t i) {
-            return {this->particles[i][0], this->particles[i][1], angleFunction().getValue()};
-        }
+			return particles;
+		}
 
-        void update(const std::function<Eigen::Vector2f()> &predictionFunction) {
-            if (!isfinite(angleFunction().getValue())) {
-                return;
-            }
+		/**
+		 * Get the particle at index i
+		 *
+		 * @return Particle at index y with the particle in the form of [x, y, ø]ᵀ
+		 */
+		Eigen::Vector3f getParticle(size_t i) {
+			return {this->particles[i][0], this->particles[i][1], angleFunction().getValue()};
+		}
 
-            auto start = pros::micros();
+		/**
+		 *
+		 */
+		void update(const std::function<Eigen::Vector2f()> &predictionFunction) {
+			if (!isfinite(angleFunction().getValue())) {
+				return;
+			}
 
-            const Angle angle = angleFunction();
+			auto start = pros::micros();
 
-            for (auto &&particle: particles) {
-                auto prediction = predictionFunction();
-                particle[0] += prediction.x();
-                particle[1] += prediction.y();
-            }
+			const Angle angle = angleFunction();
 
-            distanceSinceUpdate += predictionFunction().norm();
+			for (auto &&particle: particles) {
+				auto prediction = predictionFunction();
+				particle[0] += prediction.x();
+				particle[1] += prediction.y();
+			}
 
-            if (distanceSinceUpdate < maxDistanceSinceUpdate && maxUpdateInterval > pros::millis() * millisecond) {
-                return;
-            }
+			distanceSinceUpdate += predictionFunction().norm();
 
-            for (auto &&sensor: this->sensors) {
-                sensor->update();
-            }
+			if (distanceSinceUpdate < maxDistanceSinceUpdate && maxUpdateInterval > pros::millis() * millisecond) {
+				return;
+			}
 
-            double totalWeight = 0.0;
+			for (auto &&sensor: this->sensors) {
+				sensor->update();
+			}
 
-            for (size_t i = 0; i < L; i++) {
-                weights[i] = 1.0;
+			double totalWeight = 0.0;
 
-                if (outOfField(particles[i])) {
-                    particles[i][0] = fieldDist(de);
-                    particles[i][1] = fieldDist(de);
-                }
+			for (size_t i = 0; i < L; i++) {
+				weights[i] = 1.0;
 
-                auto particle = Eigen::Vector3f(particles[i][0], particles[i][1], angle.getValue());
+				if (outOfField(particles[i])) {
+					particles[i][0] = fieldDist(de);
+					particles[i][1] = fieldDist(de);
+				}
 
-                for (const auto sensor: sensors) {
-                    if (auto weight = sensor->p(particle); weight.has_value() && isfinite(weight.value())) {
-                        weights[i] = weights[i] * weight.value();
-                    }
-                }
+				auto particle = Eigen::Vector3f(particles[i][0], particles[i][1], angle.getValue());
 
-                weights[i] = weights[i];
+				for (const auto sensor: sensors) {
+					if (auto weight = sensor->p(particle); weight.has_value() && isfinite(weight.value())) {
+						weights[i] = weights[i] * weight.value();
+					}
+				}
 
-                totalWeight = totalWeight + weights[i];
-            }
+				weights[i] = weights[i];
 
-            if (totalWeight == 0.0) {
-                std::cout << "Warning: Total weight equal to 0" << std::endl;
-                return;
-            }
+				totalWeight = totalWeight + weights[i];
+			}
 
-            const double avgWeight = totalWeight / static_cast<double>(L);
+			if (totalWeight == 0.0) {
+				std::cout << "Warning: Total weight equal to 0" << std::endl;
+				return;
+			}
 
-            std::uniform_real_distribution distribution(0.0, avgWeight);
-            const double randWeight = distribution(de);
+			const double avgWeight = totalWeight / static_cast<double>(L);
 
-            for (size_t i = 0; i < particles.size(); i++) {
-                oldParticles[i] = particles[i];
-            }
+			std::uniform_real_distribution distribution(0.0, avgWeight);
+			const double randWeight = distribution(de);
 
-            size_t j = 0;
-            auto cumulativeWeight = 0.0;
+			for (size_t i = 0; i < particles.size(); i++) {
+				oldParticles[i] = particles[i];
+			}
 
-            float xSum = 0.0, ySum = 0.0;
+			size_t j = 0;
+			auto cumulativeWeight = 0.0;
 
-            for (size_t i = 0; i < L; i++) {
-                const auto weight = static_cast<double>(i) * avgWeight + randWeight;
+			float xSum = 0.0, ySum = 0.0;
 
-                while (cumulativeWeight < weight) {
-                    if (j >= weights.size()) {
-                        break;
-                    }
-                    cumulativeWeight += weights[j];
-                    j++;
-                }
+			for (size_t i = 0; i < L; i++) {
+				const auto weight = static_cast<double>(i) * avgWeight + randWeight;
 
-                particles[i][0] = oldParticles[j - 1][0];
-                particles[i][1] = oldParticles[j - 1][1];
+				while (cumulativeWeight < weight) {
+					if (j >= weights.size()) {
+						break;
+					}
+					cumulativeWeight += weights[j];
+					j++;
+				}
 
-                xSum += particles[i][0];
-                ySum += particles[i][1];
-            }
+				particles[i][0] = oldParticles[j - 1][0];
+				particles[i][1] = oldParticles[j - 1][1];
 
-            prediction = Eigen::Vector3f(xSum / static_cast<float>(L), ySum / static_cast<float>(L), angle.getValue());
+				xSum += particles[i][0];
+				ySum += particles[i][1];
+			}
 
-            lastUpdateTime = pros::millis() * millisecond;
-            distanceSinceUpdate = 0.0;
-        }
+			prediction = Eigen::Vector3f(xSum / static_cast<float>(L), ySum / static_cast<float>(L), angle.getValue());
 
-        void initNormal(const Eigen::Vector2f &mean, const Eigen::Matrix2f &covariance, const bool flip) {
-            for (auto &&particle: this->particles) {
-                Eigen::Vector2f p = mean + covariance * Eigen::Vector2f::Random();
-                particle[0] = p.x();
-                particle[1] = p.y() * (flip ? -1.0 : 1.0);
-            }
+			lastUpdateTime = pros::millis() * millisecond;
+			distanceSinceUpdate = 0.0;
+		}
 
-            prediction.z() = angleFunction().getValue();
-            distanceSinceUpdate += 2.0 * distanceSinceUpdate;
-        }
+		/**
+		 * Initializes the filter's belief with a mean and covariance
+		 *
+		 * @param mean The desired mean point of the distribution
+		 * @param covariance The covariance of the filter
+		 * @param flip Boolean to flip along the centerline of the field
+		 */
+		void initNormal(const Eigen::Vector2f &mean, const Eigen::Matrix2f &covariance, const bool flip) {
+			for (auto &&particle: this->particles) {
+				Eigen::Vector2f p = mean + covariance * Eigen::Vector2f::Random();
+				particle[0] = p.x();
+				particle[1] = p.y() * (flip ? -1.0 : 1.0);
+			}
 
-        static bool outOfField(const std::array<float, 2> &vector) {
-            return vector[0] > 1.78308 || vector[0] < -1.78308 || vector[1] < -1.78308 || vector[1] > 1.78308;
-        }
+			prediction.z() = angleFunction().getValue();
+			distanceSinceUpdate += 2.0 * distanceSinceUpdate;
+		}
 
-        void initUniform(const QLength minX, const QLength minY, const QLength maxX, const QLength maxY) {
-            std::uniform_real_distribution xDistribution(minX.getValue(), maxX.getValue());
-            std::uniform_real_distribution yDistribution(minY.getValue(), maxY.getValue());
+		/**
+		 * @brief Initialize a uniform distribution over a rectangular area
+		 *
+		 * @param minX The minimum X coordinate for the rectangle (bottom left X)
+		 * @param minY The minimum Y coordinate for the rectangle (bottom left Y)
+		 * @param maxX The maximum X coordinate for the rectangle (top right X)
+		 * @param maxY The maximum Y coordinate for the rectangle (top right Y)
+		 */
+		void initUniform(const QLength minX, const QLength minY, const QLength maxX, const QLength maxY) {
+			std::uniform_real_distribution xDistribution(minX.getValue(), maxX.getValue());
+			std::uniform_real_distribution yDistribution(minY.getValue(), maxY.getValue());
 
-            for (auto &&particle: this->particles) {
-                particle[0] = xDistribution(de);
-                particle[1] = yDistribution(de);
-            }
-        }
+			for (auto &&particle: this->particles) {
+				particle[0] = xDistribution(de);
+				particle[1] = yDistribution(de);
+			}
+		}
 
-        void addSensor(SensorModel *sensor) {
-            this->sensors.emplace_back(sensor);
-        }
+		/**
+		 * @brief Add a sensor model to the particle filter
+		 *
+		 * @param sensor A pointer to the new sensor model to add
+		 */
+		void addSensor(SensorModel *sensor) { this->sensors.emplace_back(sensor); }
 
-        Angle getAngle() {
-            return angleFunction();
-        }
-    };
-}
+		/**
+		 * @brief Get the angle from the user-defined angle function
+		 */
+		[[nodiscard]] Angle getAngle() const { return angleFunction(); }
+	};
+} // namespace loco
